@@ -14,6 +14,7 @@
     "require": {
         "php": ">=7.1",
         "extendsframework/extends-http": "dev-master",
+        "extendsframework/extends-validator": "dev-master",
         "extendsframework/extends-servicelocator": "dev-master"
     },
     "require-dev": {
