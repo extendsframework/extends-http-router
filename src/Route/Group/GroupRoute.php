@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router\Route\Group;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;

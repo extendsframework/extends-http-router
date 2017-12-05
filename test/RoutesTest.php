@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
+use ExtendsFramework\Router\Exception\GroupRouteExpected;
+use ExtendsFramework\Router\Exception\RouteNotFound;
 use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Method\MethodRoute;
+use ExtendsFramework\Router\Route\RouteException;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
@@ -283,8 +286,8 @@ class RoutesStub
 
     /**
      * @param RequestInterface $request
-     * @return Route\RouteMatchInterface|null
-     * @throws Route\RouteException
+     * @return RouteMatchInterface|null
+     * @throws RouteException
      */
     public function match(RequestInterface $request): ?RouteMatchInterface
     {
@@ -295,6 +298,8 @@ class RoutesStub
      * @param string    $name
      * @param bool|null $groupRoute
      * @return RouteInterface
+     * @throws GroupRouteExpected
+     * @throws RouteNotFound
      */
     public function route(string $name, bool $groupRoute = null): RouteInterface
     {
