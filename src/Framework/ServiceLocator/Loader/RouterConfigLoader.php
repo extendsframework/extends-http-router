@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Router\Framework\ServiceLocator\Loader;
 
-use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
 use ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware;
 use ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory;
@@ -44,10 +43,6 @@ class RouterConfigLoader implements LoaderInterface
                     RouterMiddleware::class => RouterMiddleware::class,
                     ControllerMiddleware::class => ControllerMiddleware::class,
                 ],
-            ],
-            MiddlewareChainInterface::class => [
-                RouterMiddleware::class => 150,
-                ControllerMiddleware::class => 100,
             ],
             RouterInterface::class => [
                 'routes' => [],
