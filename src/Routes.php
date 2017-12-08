@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router;
+namespace ExtendsFramework\Http\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Exception\GroupRouteExpected;
-use ExtendsFramework\Router\Exception\RouteNotFound;
-use ExtendsFramework\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Exception\GroupRouteExpected;
+use ExtendsFramework\Http\Router\Exception\RouteNotFound;
+use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 
 trait Routes
 {

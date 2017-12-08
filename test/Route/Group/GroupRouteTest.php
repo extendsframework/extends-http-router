@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Group;
+namespace ExtendsFramework\Http\Router\Route\Group;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -16,11 +16,11 @@ class GroupRouteTest extends TestCase
      *
      * Test that group route will match child route for request and return RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testChildRoute(): void
     {
@@ -74,11 +74,11 @@ class GroupRouteTest extends TestCase
      *
      * Test that group route will match non abstract route for request and return RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testNonAbstractRoute(): void
     {
@@ -108,11 +108,11 @@ class GroupRouteTest extends TestCase
      *
      * Test that group route will not match abstract self and return null.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testAbstractRoute(): void
     {
@@ -142,11 +142,11 @@ class GroupRouteTest extends TestCase
      *
      * Test that inner route will not match and return null.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testNoRouteMatch(): void
     {
@@ -174,8 +174,8 @@ class GroupRouteTest extends TestCase
      *
      * Test that group route will pass assemble to child route.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -203,8 +203,8 @@ class GroupRouteTest extends TestCase
      *
      * Test that group route will pass assemble to child route and sub route.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::assemble()
      */
     public function testAssembleChildRoute(): void
     {
@@ -240,10 +240,10 @@ class GroupRouteTest extends TestCase
      *
      * Test that abstract group route can not be assembled and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
-     * @covers                   \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute::__construct()
-     * @expectedException        \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute
+     * @covers                   \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
+     * @covers                   \ExtendsFramework\Http\Router\Route\Group\GroupRoute::assemble()
+     * @covers                   \ExtendsFramework\Http\Router\Route\Group\Exception\AssembleAbstractGroupRoute::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Route\Group\Exception\AssembleAbstractGroupRoute
      * @expectedExceptionMessage Can not assemble a abstract route.
      */
     public function testAssembleAbstractRoute(): void
@@ -272,8 +272,8 @@ class GroupRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Group\GroupRoute::__construct()
      */
     public function testFactory(): void
     {

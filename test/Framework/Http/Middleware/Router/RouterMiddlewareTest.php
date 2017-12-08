@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Framework\Http\Middleware\Router;
+namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Router;
 
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Router\Exception\NotFound;
-use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
-use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
-use ExtendsFramework\Router\RouterInterface;
+use ExtendsFramework\Http\Router\Exception\NotFound;
+use ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString;
+use ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\RouterInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -23,8 +23,8 @@ class RouterMiddlewareTest extends TestCase
      *
      * Test that route can be matched, controller will be dispatched and a response will be returned.
      *
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
      */
     public function testMatch(): void
     {
@@ -68,10 +68,10 @@ class RouterMiddlewareTest extends TestCase
      *
      * Test that when method is not allowed a 404 Not Found response will be returned.
      *
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getNotFoundResponse()
-     * @covers \ExtendsFramework\Router\Exception\NotFound::getRequest()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::getNotFoundResponse()
+     * @covers \ExtendsFramework\Http\Router\Exception\NotFound::getRequest()
      */
     public function testNotFound(): void
     {
@@ -116,9 +116,9 @@ class RouterMiddlewareTest extends TestCase
      *
      * Test that when method is not allowed a 405 Method Not Allowed response will be returned.
      *
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getMethodNotAllowedResponse()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::getMethodNotAllowedResponse()
      */
     public function testMethodNotAllowed(): void
     {
@@ -159,9 +159,9 @@ class RouterMiddlewareTest extends TestCase
      *
      * Test that invalid query string exception will be caught and returned as a 400 response.
      *
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getInvalidQueryStringResponse()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::getInvalidQueryStringResponse()
      */
     public function testInvalidQueryString(): void
     {
@@ -212,9 +212,9 @@ class RouterMiddlewareTest extends TestCase
      *
      * Test that query parameter missing exception will be caught and returned as a 400 response.
      *
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getQueryParameterMissingResponse()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::getQueryParameterMissingResponse()
      */
     public function testQueryParameterMissing(): void
     {

@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router;
+namespace ExtendsFramework\Http\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Exception\GroupRouteExpected;
-use ExtendsFramework\Router\Exception\RouteNotFound;
-use ExtendsFramework\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Method\MethodRoute;
-use ExtendsFramework\Router\Route\RouteException;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Exception\GroupRouteExpected;
+use ExtendsFramework\Http\Router\Exception\RouteNotFound;
+use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Http\Router\Route\Method\MethodRoute;
+use ExtendsFramework\Http\Router\Route\RouteException;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
 class RoutesTest extends TestCase
@@ -21,9 +21,9 @@ class RoutesTest extends TestCase
      *
      * Test that route will be matched and returned.
      *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testMatch(): void
     {
@@ -64,9 +64,9 @@ class RoutesTest extends TestCase
      *
      * Test that no route will be matched and null will be returned.
      *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testNoMatch(): void
     {
@@ -85,9 +85,9 @@ class RoutesTest extends TestCase
      *
      * Test that none of the method routes is allowed and exception will be thrown with allowed methods.
      *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testMethodNotAllowed(): void
     {
@@ -129,9 +129,9 @@ class RoutesTest extends TestCase
      *
      * Test that second method route is allowed and first exception not will be thrown.
      *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testMethodAllowed(): void
     {
@@ -172,9 +172,9 @@ class RoutesTest extends TestCase
      *
      * Test that group route will be matched first.
      *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testRouteOrder(): void
     {
@@ -222,7 +222,7 @@ class RoutesTest extends TestCase
      *
      * Test that route with name will be returned.
      *
-     * @covers \ExtendsFramework\Router\Routes::getRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoute()
      */
     public function testGetRoute(): void
     {
@@ -244,9 +244,9 @@ class RoutesTest extends TestCase
      *
      * Test that route can not be found and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Routes::getRoute()
-     * @covers                   \ExtendsFramework\Router\Exception\RouteNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\RouteNotFound
+     * @covers                   \ExtendsFramework\Http\Router\Routes::getRoute()
+     * @covers                   \ExtendsFramework\Http\Router\Exception\RouteNotFound::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Exception\RouteNotFound
      * @expectedExceptionMessage Route for name "foo" can not be found.
      *
      */
@@ -261,9 +261,9 @@ class RoutesTest extends TestCase
      *
      * Test that and exception will be thrown when group route is expected but not returned.
      *
-     * @covers                          \ExtendsFramework\Router\Routes::getRoute()
-     * @covers                          \ExtendsFramework\Router\Exception\GroupRouteExpected::__construct()
-     * @expectedException               \ExtendsFramework\Router\Exception\GroupRouteExpected
+     * @covers                          \ExtendsFramework\Http\Router\Routes::getRoute()
+     * @covers                          \ExtendsFramework\Http\Router\Exception\GroupRouteExpected::__construct()
+     * @expectedException               \ExtendsFramework\Http\Router\Exception\GroupRouteExpected
      * @expectedExceptionMessageRegExp  /^A group route was expected, but an instance of "([^"]+)" was returned.$/
      */
     public function testGroupRouteExpected(): void

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route;
+namespace ExtendsFramework\Http\Router\Route;
 
 use PHPUnit\Framework\TestCase;
 
@@ -12,9 +12,9 @@ class RouteMatchTest extends TestCase
      *
      * Test that get methods will return correct values.s
      *
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::__construct()
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::getParameters()
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::getPathOffset()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::getParameters()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::getPathOffset()
      */
     public function testGetMethods(): void
     {
@@ -29,10 +29,10 @@ class RouteMatchTest extends TestCase
      *
      * Test that two RouteMatchInterface instances can merge in a third.
      *
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::__construct()
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::merge()
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::getParameters()
-     * @covers \ExtendsFramework\Router\Route\RouteMatch::getPathOffset()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::merge()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::getParameters()
+     * @covers \ExtendsFramework\Http\Router\Route\RouteMatch::getPathOffset()
      */
     public function testMerge(): void
     {

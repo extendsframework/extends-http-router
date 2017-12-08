@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Query\Exception;
+namespace ExtendsFramework\Http\Router\Route\Query\Exception;
 
-use ExtendsFramework\Router\Route\Query\QueryRouteException;
+use ExtendsFramework\Http\Router\Route\Query\QueryRouteException;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use InvalidArgumentException;
 

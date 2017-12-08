@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Exception;
+namespace ExtendsFramework\Http\Router\Exception;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\RouterException;
+use ExtendsFramework\Http\Router\RouterException;
 use LogicException;
 
 class NotFound extends LogicException implements RouterException

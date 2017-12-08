@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Controller;
+namespace ExtendsFramework\Http\Router\Controller;
 
-use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
-use ExtendsFramework\Router\Controller\Exception\ParameterNotFound;
+use ExtendsFramework\Http\Router\Controller\Exception\ActionNotFound;
+use ExtendsFramework\Http\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ReflectionMethod;
 
 abstract class AbstractController implements ControllerInterface

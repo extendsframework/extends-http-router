@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Controller;
+namespace ExtendsFramework\Http\Router\Controller;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 
 interface ControllerInterface
 {

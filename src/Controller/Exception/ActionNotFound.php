@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Controller\Exception;
+namespace ExtendsFramework\Http\Router\Controller\Exception;
 
 use Exception;
-use ExtendsFramework\Router\Controller\ControllerException;
+use ExtendsFramework\Http\Router\Controller\ControllerException;
 
 class ActionNotFound extends Exception implements ControllerException
 {

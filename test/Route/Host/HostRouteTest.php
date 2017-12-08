@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Host;
+namespace ExtendsFramework\Http\Router\Route\Host;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +17,8 @@ class HostRouteTest extends TestCase
      *
      * Test that host route can match host and return RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::match()
      */
     public function testMatch(): void
     {
@@ -56,8 +56,8 @@ class HostRouteTest extends TestCase
      *
      * Test that host route can not match host and return null.
      *
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::match()
      */
     public function testNoMatch(): void
     {
@@ -87,8 +87,8 @@ class HostRouteTest extends TestCase
      *
      * Test that host will be set on request URI.
      *
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::assemble()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -125,8 +125,8 @@ class HostRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Host\HostRoute::__construct()
      */
     public function testFactory(): void
     {

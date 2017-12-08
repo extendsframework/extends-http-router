@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Query;
+namespace ExtendsFramework\Http\Router\Route\Query;
 
-use ExtendsFramework\Router\Route\RouteException;
+use ExtendsFramework\Http\Router\Route\RouteException;
 
 interface QueryRouteException extends RouteException
 {

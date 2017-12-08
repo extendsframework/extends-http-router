@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Path;
+namespace ExtendsFramework\Http\Router\Route\Path;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
@@ -20,10 +20,10 @@ class PathRouteTest extends TestCase
      * Test that path '/foo/:first_name/bar' will match '/:first_name/bar' and return an instance of
      * RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::getPattern()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -77,9 +77,9 @@ class PathRouteTest extends TestCase
      *
      * Test that path will not match.
      *
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::getPattern()
      */
     public function testNotMatch(): void
     {
@@ -116,8 +116,8 @@ class PathRouteTest extends TestCase
      *
      * Test that path will be set on request URI.
      *
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -159,10 +159,10 @@ class PathRouteTest extends TestCase
      *
      * Test that exception will be thrown when parameter is missing.
      *
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
-     * @covers                   \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing::__construct()
-     * @expectedException        \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing
+     * @covers                   \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
+     * @covers                   \ExtendsFramework\Http\Router\Route\Path\PathRoute::assemble()
+     * @covers                   \ExtendsFramework\Http\Router\Route\Path\Exception\PathParameterMissing::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Route\Path\Exception\PathParameterMissing
      * @expectedExceptionMessage Failed to assemble route, path parameter "id" is missing.
      */
     public function testParameterMissing(): void
@@ -191,9 +191,9 @@ class PathRouteTest extends TestCase
      *
      * Test that validator for 'id' is invalid and route won't match.
      *
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::getPattern()
      */
     public function testInvalidValidator(): void
     {
@@ -238,8 +238,8 @@ class PathRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Path\PathRoute::__construct()
      */
     public function testFactory(): void
     {

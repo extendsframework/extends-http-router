@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Controller;
+namespace ExtendsFramework\Http\Router\Controller;
 
 use Throwable;
 

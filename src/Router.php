@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router;
+namespace ExtendsFramework\Http\Router;
 
 use ExtendsFramework\Http\Request\Request;
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Exception\InvalidRoutePath;
-use ExtendsFramework\Router\Exception\NotFound;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Exception\InvalidRoutePath;
+use ExtendsFramework\Http\Router\Exception\NotFound;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 
 class Router implements RouterInterface
 {

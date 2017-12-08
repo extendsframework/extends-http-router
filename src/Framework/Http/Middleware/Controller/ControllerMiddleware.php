@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller;
+namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller;
 
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Middleware\MiddlewareInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Router\Controller\ControllerException;
-use ExtendsFramework\Router\Controller\ControllerInterface;
-use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerDispatchFailed;
-use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Controller\ControllerException;
+use ExtendsFramework\Http\Router\Controller\ControllerInterface;
+use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerDispatchFailed;
+use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 

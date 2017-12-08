@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route;
+namespace ExtendsFramework\Http\Router\Route;
 
 class RouteMatch implements RouteMatchInterface
 {

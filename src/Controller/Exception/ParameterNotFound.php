@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Controller\Exception;
+namespace ExtendsFramework\Http\Router\Controller\Exception;
 
-use ExtendsFramework\Router\Controller\ControllerException;
+use ExtendsFramework\Http\Router\Controller\ControllerException;
 use InvalidArgumentException;
 
 class ParameterNotFound extends InvalidArgumentException implements ControllerException

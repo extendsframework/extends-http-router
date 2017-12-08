@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Scheme;
+namespace ExtendsFramework\Http\Router\Route\Scheme;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -17,9 +17,9 @@ class SchemeRouteTest extends TestCase
      *
      * Test that route will match scheme HTTPS and return instance of RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::match()
      */
     public function testMatch(): void
     {
@@ -57,9 +57,9 @@ class SchemeRouteTest extends TestCase
      *
      * Test that route will not match scheme HTTP and will return null.
      *
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::match()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::match()
      */
     public function testNoMatch(): void
     {
@@ -89,8 +89,8 @@ class SchemeRouteTest extends TestCase
      *
      * Test that scheme will be set on request URI.
      *
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::assemble()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -125,8 +125,8 @@ class SchemeRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
-     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::factory()
+     * @covers \ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute::__construct()
      */
     public function testFactory(): void
     {

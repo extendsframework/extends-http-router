@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Exception;
+namespace ExtendsFramework\Http\Router\Exception;
 
-use ExtendsFramework\Router\RouterException;
+use ExtendsFramework\Http\Router\RouterException;
 use InvalidArgumentException;
 
 class InvalidRoutePath extends InvalidArgumentException implements RouterException

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Query;
+namespace ExtendsFramework\Http\Router\Route\Query;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
-use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatch;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString;
+use ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatch;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\ValidatorInterface;

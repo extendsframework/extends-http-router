@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Route\Group;
+namespace ExtendsFramework\Http\Router\Route\Group;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
-use ExtendsFramework\Router\Routes;
+use ExtendsFramework\Http\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Routes;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 

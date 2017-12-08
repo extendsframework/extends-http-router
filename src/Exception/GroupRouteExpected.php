@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Exception;
+namespace ExtendsFramework\Http\Router\Exception;
 
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\RouterException;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\RouterException;
 use LogicException;
 
 class GroupRouteExpected extends LogicException implements RouterException

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router;
+namespace ExtendsFramework\Http\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Router\Exception\NotFound;
-use ExtendsFramework\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Http\Router\Exception\NotFound;
+use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
 class RouterTest extends TestCase
@@ -18,11 +18,11 @@ class RouterTest extends TestCase
      *
      * Test that router can match route and return RouteMatchInterface.
      *
-     * @covers \ExtendsFramework\Router\Router::addRoute()
-     * @covers \ExtendsFramework\Router\Router::route()
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Router::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Router::route()
+     * @covers \ExtendsFramework\Http\Router\Routes::addRoute()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
      */
     public function testMatch(): void
     {
@@ -82,10 +82,10 @@ class RouterTest extends TestCase
      *
      * Test that router can not match route and will return null.
      *
-     * @covers \ExtendsFramework\Router\Router::route()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
-     * @covers \ExtendsFramework\Router\Exception\NotFound::getRequest()
+     * @covers \ExtendsFramework\Http\Router\Router::route()
+     * @covers \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Http\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Http\Router\Exception\NotFound::getRequest()
      */
     public function testNoMatch(): void
     {
@@ -108,11 +108,11 @@ class RouterTest extends TestCase
      *
      * Test that a partial URI path can not be matched.
      *
-     * @covers                   \ExtendsFramework\Router\Router::route()
-     * @covers                   \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers                   \ExtendsFramework\Router\Routes::getRoutes()
-     * @covers                   \ExtendsFramework\Router\Exception\NotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\NotFound
+     * @covers                   \ExtendsFramework\Http\Router\Router::route()
+     * @covers                   \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers                   \ExtendsFramework\Http\Router\Routes::getRoutes()
+     * @covers                   \ExtendsFramework\Http\Router\Exception\NotFound::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Exception\NotFound
      * @expectedExceptionMessage Request could not be matched by a route.
      */
     public function testPathOffsetMismatch(): void
@@ -159,11 +159,11 @@ class RouterTest extends TestCase
      *
      * Test that more then the allowed query string parameters will return in an exception.
      *
-     * @covers                   \ExtendsFramework\Router\Router::route()
-     * @covers                   \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers                   \ExtendsFramework\Router\Routes::getRoutes()
-     * @covers                   \ExtendsFramework\Router\Exception\NotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\NotFound
+     * @covers                   \ExtendsFramework\Http\Router\Router::route()
+     * @covers                   \ExtendsFramework\Http\Router\Routes::matchRoutes()
+     * @covers                   \ExtendsFramework\Http\Router\Routes::getRoutes()
+     * @covers                   \ExtendsFramework\Http\Router\Exception\NotFound::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Exception\NotFound
      * @expectedExceptionMessage Request could not be matched by a route.
      */
     public function testTooMuchQueryParameters(): void
@@ -223,7 +223,7 @@ class RouterTest extends TestCase
      *
      * Test that route will be assembled and request will be returned.
      *
-     * @covers \ExtendsFramework\Router\Router::assemble()
+     * @covers \ExtendsFramework\Http\Router\Router::assemble()
      */
     public function testAssemble(): void
     {
@@ -255,9 +255,9 @@ class RouterTest extends TestCase
      *
      * Test that exception will be thrown when route path is invalid.
      *
-     * @covers                   \ExtendsFramework\Router\Router::assemble()
-     * @covers                   \ExtendsFramework\Router\Exception\InvalidRoutePath::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\InvalidRoutePath
+     * @covers                   \ExtendsFramework\Http\Router\Router::assemble()
+     * @covers                   \ExtendsFramework\Http\Router\Exception\InvalidRoutePath::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Exception\InvalidRoutePath
      * @expectedExceptionMessage Invalid router assemble path, got "/foo/".
      */
     public function testInvalidRoutePath(): void

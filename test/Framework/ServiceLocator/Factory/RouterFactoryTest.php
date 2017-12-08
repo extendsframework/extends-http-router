@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Router\Framework\ServiceLocator\Factory;
+namespace ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory;
 
-use ExtendsFramework\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Router\Route\Method\MethodRoute;
-use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\Scheme\SchemeRoute;
-use ExtendsFramework\Router\RouterInterface;
+use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Http\Router\Route\Method\MethodRoute;
+use ExtendsFramework\Http\Router\Route\RouteInterface;
+use ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute;
+use ExtendsFramework\Http\Router\RouterInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -18,9 +18,9 @@ class RouterFactoryTest extends TestCase
      *
      * Test that factory will return an instance of RouterInterface.
      *
-     * @covers \ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory::createService()
-     * @covers \ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory::createRoute()
-     * @covers \ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory::createGroup()
+     * @covers \ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory\RouterFactory::createService()
+     * @covers \ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory\RouterFactory::createRoute()
+     * @covers \ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory\RouterFactory::createGroup()
      */
     public function testCreateService(): void
     {
