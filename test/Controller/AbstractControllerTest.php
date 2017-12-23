@@ -12,11 +12,11 @@ use PHPUnit\Framework\TestCase;
 class AbstractControllerTest extends TestCase
 {
     /**
-     * Dispatch.
+     * Execute.
      *
-     * Test that $request can be dispatched to $controller and $response will be returned.
+     * Test that $request can be executed to $controller and $response will be returned.
      *
-     * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::dispatch()
+     * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::execute()
      * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::getMethod()
      * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::getAction()
      * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::normalizeAction()
@@ -24,7 +24,7 @@ class AbstractControllerTest extends TestCase
      * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::getRequest()
      * @covers \ExtendsFramework\Http\Router\Controller\AbstractController::getRouteMatch()
      */
-    public function testDispatch(): void
+    public function testExecute(): void
     {
         $request = $this->createMock(RequestInterface::class);
 
@@ -41,7 +41,7 @@ class AbstractControllerTest extends TestCase
          * @var RouteMatchInterface $match
          */
         $controller = new ControllerStub();
-        $response = $controller->dispatch($request, $match);
+        $response = $controller->execute($request, $match);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         if ($response instanceof ResponseInterface) {
@@ -60,7 +60,7 @@ class AbstractControllerTest extends TestCase
      *
      * Test that action attribute can not be found in $request and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::dispatch()
+     * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::execute()
      * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::getAction()
      * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::getMethod()
      * @covers                   \ExtendsFramework\Http\Router\Controller\Exception\ActionNotFound::__construct()
@@ -81,7 +81,7 @@ class AbstractControllerTest extends TestCase
          * @var RouteMatchInterface $match
          */
         $controller = new ControllerStub();
-        $controller->dispatch($request, $match);
+        $controller->execute($request, $match);
     }
 
     /**
@@ -89,7 +89,7 @@ class AbstractControllerTest extends TestCase
      *
      * Test that parameter value can not be determined and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::dispatch()
+     * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::execute()
      * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::getAction()
      * @covers                   \ExtendsFramework\Http\Router\Controller\AbstractController::getMethod()
      * @covers                   \ExtendsFramework\Http\Router\Controller\Exception\ParameterNotFound::__construct()
@@ -113,7 +113,7 @@ class AbstractControllerTest extends TestCase
          * @var RouteMatchInterface $match
          */
         $controller = new ControllerStub();
-        $controller->dispatch($request, $match);
+        $controller->execute($request, $match);
     }
 }
 

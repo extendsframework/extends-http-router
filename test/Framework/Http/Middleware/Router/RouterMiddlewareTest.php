@@ -21,7 +21,7 @@ class RouterMiddlewareTest extends TestCase
     /**
      * Process.
      *
-     * Test that route can be matched, controller will be dispatched and a response will be returned.
+     * Test that route can be matched, controller will be executed and a response will be returned.
      *
      * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()

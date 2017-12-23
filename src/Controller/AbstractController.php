@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Http\Router\Controller;
 
-use ExtendsFramework\Http\Router\Controller\Exception\ActionNotFound;
-use ExtendsFramework\Http\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
+use ExtendsFramework\Http\Router\Controller\Exception\ActionNotFound;
+use ExtendsFramework\Http\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ReflectionMethod;
 
@@ -20,14 +20,14 @@ abstract class AbstractController implements ControllerInterface
     protected $postfix = 'Action';
 
     /**
-     * Dispatch request.
+     * Request.
      *
      * @var RequestInterface
      */
     protected $request;
 
     /**
-     * Dispatch route match.
+     * Route match.
      *
      * @var RouteMatchInterface
      */
@@ -36,7 +36,7 @@ abstract class AbstractController implements ControllerInterface
     /**
      * @inheritDoc
      */
-    public function dispatch(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface
+    public function execute(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface
     {
         $this->request = $request;
         $this->routeMatch = $routeMatch;

@@ -9,7 +9,7 @@ use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Http\Router\Controller\ControllerException;
 use ExtendsFramework\Http\Router\Controller\ControllerInterface;
-use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerDispatchFailed;
+use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed;
 use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound;
 use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorException;
@@ -50,9 +50,9 @@ class ControllerMiddleware implements MiddlewareInterface
                 }
 
                 try {
-                    return $controller->dispatch($request, $match);
+                    return $controller->execute($request, $match);
                 } catch (ControllerException $exception) {
-                    throw new ControllerDispatchFailed($exception);
+                    throw new ControllerExecutionFailed($exception);
                 }
             }
         }

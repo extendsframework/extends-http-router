@@ -16,9 +16,9 @@ use PHPUnit\Framework\TestCase;
 class ControllerMiddlewareTest extends TestCase
 {
     /**
-     * Dispatch.
+     * Process.
      *
-     * Test that controller will be dispatched with request and route match.
+     * Test that controller will be executed with request and route match.
      *
      * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
      * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
@@ -48,7 +48,7 @@ class ControllerMiddlewareTest extends TestCase
         $controller = $this->createMock(ControllerInterface::class);
         $controller
             ->expects($this->once())
-            ->method('dispatch')
+            ->method('execute')
             ->with($request, $match)
             ->willReturn($response);
 
@@ -122,17 +122,17 @@ class ControllerMiddlewareTest extends TestCase
     }
 
     /**
-     * Controller dispatch failed.
+     * Controller execute failed.
      *
-     * Test that a ControllerException can be caught and the exception ControllerDispatchFailed will be thrown.
+     * Test that a ControllerException can be caught and the exception ControllerExecutionFailed will be thrown.
      *
      * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
      * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerDispatchFailed::__construct()
-     * @expectedException        \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerDispatchFailed
-     * @expectedExceptionMessage Failed to dispatch request to controller. See previous exception for more details.
+     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed::__construct()
+     * @expectedException        \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed
+     * @expectedExceptionMessage Failed to execute request to controller. See previous exception for more details.
      */
-    public function testControllerDispatchFailed(): void
+    public function testControllerExecuteFailed(): void
     {
         $chain = $this->createMock(MiddlewareChainInterface::class);
 
@@ -159,7 +159,7 @@ class ControllerMiddlewareTest extends TestCase
         $controller = $this->createMock(ControllerInterface::class);
         $controller
             ->expects($this->once())
-            ->method('dispatch')
+            ->method('execute')
             ->with($request, $match)
             ->willThrowException($exception);
 

@@ -10,7 +10,7 @@ use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
 interface ControllerInterface
 {
     /**
-     * Dispatch $request to controller $action.
+     * Execute controller with request and route match.
      *
      * Method must return result as an array. When there is no result to result, this method must return an empty
      * array. When no method can be found, an exception will be thrown.
@@ -20,5 +20,5 @@ interface ControllerInterface
      * @return ResponseInterface
      * @throws ControllerException
      */
-    public function dispatch(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface;
+    public function execute(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface;
 }
