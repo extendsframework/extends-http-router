@@ -13,20 +13,26 @@ use ExtendsFramework\Router\Route\Path\PathRoute;
 use ExtendsFramework\Router\Route\Query\QueryRoute;
 use ExtendsFramework\Router\Route\Scheme\SchemeRoute;
 use ExtendsFramework\Router\RouterInterface;
-use ExtendsFramework\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
+use PHPUnit\Framework\TestCase;
 
-class HttpRouterConfigLoader implements LoaderInterface
+class RouterConfigLoaderTest extends TestCase
 {
     /**
-     * @inheritDoc
+     * Load.
+     *
+     * Test that loader returns correct array.
+     *
+     * @covers \ExtendsFramework\Router\Framework\ServiceLocator\Loader\RouterConfigLoader::load()
      */
-    public function load(): array
+    public function testLoad(): void
     {
-        return [
+        $loader = new RouterConfigLoader();
+
+        $this->assertSame([
             ServiceLocatorInterface::class => [
                 FactoryResolver::class => [
                     RouterInterface::class => RouterFactory::class,
@@ -47,6 +53,6 @@ class HttpRouterConfigLoader implements LoaderInterface
             RouterInterface::class => [
                 'routes' => [],
             ],
-        ];
+        ], $loader->load());
     }
 }
