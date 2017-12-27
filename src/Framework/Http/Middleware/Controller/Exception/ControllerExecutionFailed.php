@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception;
+namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception;
 
 use Exception;
-use ExtendsFramework\Http\Router\Controller\ControllerException;
-use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddlewareException;
+use ExtendsFramework\Router\Controller\ControllerException;
+use ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddlewareException;
 
 class ControllerExecutionFailed extends Exception implements ControllerMiddlewareException
 {

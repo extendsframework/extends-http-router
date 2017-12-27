@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Method;
+namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatch;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Route\RouteMatch;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 
@@ -76,7 +76,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): RouteInterface
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['method'], $extra['parameters'] ?? []);
     }

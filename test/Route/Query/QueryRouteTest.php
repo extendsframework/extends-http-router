@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Query;
+namespace ExtendsFramework\Router\Route\Query;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString;
-use ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
+use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
@@ -21,9 +21,9 @@ class QueryRouteTest extends TestCase
      *
      * Test that route will match '?limit=20&offset=0' and return an instance of RouteMatchInterface
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::getParameters()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -84,11 +84,11 @@ class QueryRouteTest extends TestCase
      *
      * Test that route will not match empty query and return null.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString::getParameter()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString::getResult()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getParameter()
+     * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getResult()
      */
     public function testNoMatch(): void
     {
@@ -145,8 +145,8 @@ class QueryRouteTest extends TestCase
      *
      * Test that query string will be set on request URI.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -219,9 +219,9 @@ class QueryRouteTest extends TestCase
      *
      * Test that exception will be thrown when required query parameter is missing.
      *
-     * @covers            \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers            \ExtendsFramework\Http\Router\Route\Query\QueryRoute::assemble()
-     * @expectedException \ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @expectedException \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing
      */
     public function testQueryParameterMissing(): void
     {
@@ -243,9 +243,9 @@ class QueryRouteTest extends TestCase
      *
      * Test that exception will be thrown when query string parameter is invalid.
      *
-     * @covers            \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers            \ExtendsFramework\Http\Router\Route\Query\QueryRoute::assemble()
-     * @expectedException \ExtendsFramework\Http\Router\Route\Query\Exception\InvalidQueryString
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @expectedException \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString
      */
     public function testInvalidQueryString(): void
     {
@@ -280,10 +280,10 @@ class QueryRouteTest extends TestCase
      *
      * Test that a missing query parameter, without default value, will thrown an exception.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\Exception\QueryParameterMissing::getParameter()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::getParameter()
      */
     public function testValidatorWithoutDefault(): void
     {
@@ -334,8 +334,8 @@ class QueryRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::factory()
-     * @covers \ExtendsFramework\Http\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      */
     public function testFactory(): void
     {

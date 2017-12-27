@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router;
+namespace ExtendsFramework\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 
 interface RouterInterface
 {

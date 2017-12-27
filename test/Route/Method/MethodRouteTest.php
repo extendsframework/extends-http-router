@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Method;
+namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -16,9 +16,9 @@ class MethodRouteTest extends TestCase
      *
      * Test that POST method will be matched and a instance of RouteMatchInterface will be returned.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::factory()
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::__construct()
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
      */
     public function testMatch(): void
     {
@@ -50,11 +50,11 @@ class MethodRouteTest extends TestCase
      *
      * Test that method GET is not allowed and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Http\Router\Route\Method\MethodRoute::factory()
-     * @covers                   \ExtendsFramework\Http\Router\Route\Method\MethodRoute::__construct()
-     * @covers                   \ExtendsFramework\Http\Router\Route\Method\MethodRoute::match()
-     * @covers                   \ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed::__construct()
-     * @expectedException        \ExtendsFramework\Http\Router\Route\Method\Exception\MethodNotAllowed
+     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
+     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers                   \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed::__construct()
+     * @expectedException        \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed
      * @expectedExceptionMessage Method "GET" is not allowed.
      */
     public function testMethodNotAllowed(): void
@@ -77,7 +77,7 @@ class MethodRouteTest extends TestCase
      *
      * Test that assemble method will return request.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::assemble()
      */
     public function testAssemble(): void
     {
@@ -100,8 +100,8 @@ class MethodRouteTest extends TestCase
      *
      * Test that factory will return an instance of RouteInterface.
      *
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::factory()
-     * @covers \ExtendsFramework\Http\Router\Route\Method\MethodRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      */
     public function testFactory(): void
     {

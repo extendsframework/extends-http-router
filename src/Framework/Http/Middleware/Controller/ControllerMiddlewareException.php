@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller;
+namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller;
 
 use ExtendsFramework\Http\Middleware\MiddlewareException;
 

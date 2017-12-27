@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Path;
+namespace ExtendsFramework\Router\Route\Path;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Router\Route\Path\Exception\PathParameterMissing;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatch;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Route\RouteMatch;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
@@ -63,7 +63,13 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if ((bool)preg_match($this->getPattern(), $request->getUri()->getPath(), $matches, PREG_OFFSET_CAPTURE, $pathOffset) === true) {
+        if ((bool)preg_match(
+            $this->getPattern(),
+            $request->getUri()->getPath(),
+            $matches,
+            PREG_OFFSET_CAPTURE,
+            $pathOffset
+        ) === true) {
             foreach ($this->validators as $parameter => $validator) {
                 $result = $validator->validate($matches[$parameter][0]);
                 if ($result->isValid() === false) {
@@ -103,7 +109,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): RouteInterface
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $parameter => $validator) {

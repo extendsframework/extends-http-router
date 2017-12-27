@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory;
+namespace ExtendsFramework\Router\Framework\ServiceLocator\Factory;
 
-use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Router;
-use ExtendsFramework\Http\Router\RouterInterface;
+use ExtendsFramework\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Router;
+use ExtendsFramework\Router\RouterInterface;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\ServiceFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
@@ -22,7 +22,7 @@ class RouterFactory implements ServiceFactoryInterface
      * @return RouterInterface
      * @throws ServiceLocatorException
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): RouterInterface
+    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $config = $serviceLocator->getConfig();
         $config = $config[RouterInterface::class] ?? [];
@@ -66,8 +66,12 @@ class RouterFactory implements ServiceFactoryInterface
      * @return RouteInterface
      * @throws ServiceLocatorException
      */
-    protected function createGroup(ServiceLocatorInterface $serviceLocator, RouteInterface $route, array $children, bool $abstract = null): RouteInterface
-    {
+    protected function createGroup(
+        ServiceLocatorInterface $serviceLocator,
+        RouteInterface $route,
+        array $children,
+        bool $abstract = null
+    ): RouteInterface {
         /** @var GroupRoute $group */
         $group = $serviceLocator->getService(GroupRoute::class, [
             'route' => $route,

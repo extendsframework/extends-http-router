@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller;
+namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller;
 
-use ExtendsFramework\Http\Router\Controller\ControllerInterface;
-use ExtendsFramework\Http\Router\Controller\Exception\ActionNotFound;
+use ExtendsFramework\Router\Controller\ControllerInterface;
+use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -20,9 +20,9 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that controller will be executed with request and route match.
      *
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::getController()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::getController()
      */
     public function testProcess(): void
     {
@@ -74,12 +74,11 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that when route match parameter 'controller' is not set the exception ControllerNotFound is thrown.
      *
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound
-     * @expectedExceptionMessage Controller for key "foo" can not be retrieved from service locator. See previous
-     *                           exception for more details.
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound::__construct()
+     * @expectedException        \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound
+     * @expectedExceptionMessage Controller for key "foo" can not be retrieved from service locator.
      */
     public function testControllerNotFound(): void
     {
@@ -126,10 +125,10 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that a ControllerException can be caught and the exception ControllerExecutionFailed will be thrown.
      *
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers                   \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed::__construct()
-     * @expectedException        \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed::__construct()
+     * @expectedException        \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed
      * @expectedExceptionMessage Failed to execute request to controller. See previous exception for more details.
      */
     public function testControllerExecuteFailed(): void
@@ -184,8 +183,8 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that when route match is not available the middleware chain is called.
      *
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
      */
     public function testNoRouteMatch(): void
     {
@@ -222,8 +221,8 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that when controller parameter is not available on route match the middleware chain is called.
      *
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers \ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
      */
     public function testNoControllerParameter(): void
     {

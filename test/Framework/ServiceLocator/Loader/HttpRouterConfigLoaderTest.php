@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\ServiceLocator\Loader;
+namespace ExtendsFramework\Router\Framework\ServiceLocator\Loader;
 
-use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
-use ExtendsFramework\Http\Router\Framework\Http\Middleware\Router\RouterMiddleware;
-use ExtendsFramework\Http\Router\Framework\ServiceLocator\Factory\RouterFactory;
-use ExtendsFramework\Http\Router\Route\Group\GroupRoute;
-use ExtendsFramework\Http\Router\Route\Host\HostRoute;
-use ExtendsFramework\Http\Router\Route\Method\MethodRoute;
-use ExtendsFramework\Http\Router\Route\Path\PathRoute;
-use ExtendsFramework\Http\Router\Route\Query\QueryRoute;
-use ExtendsFramework\Http\Router\Route\Scheme\SchemeRoute;
-use ExtendsFramework\Http\Router\RouterInterface;
+use ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
+use ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware;
+use ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory;
+use ExtendsFramework\Router\Route\Group\GroupRoute;
+use ExtendsFramework\Router\Route\Host\HostRoute;
+use ExtendsFramework\Router\Route\Method\MethodRoute;
+use ExtendsFramework\Router\Route\Path\PathRoute;
+use ExtendsFramework\Router\Route\Query\QueryRoute;
+use ExtendsFramework\Router\Route\Scheme\SchemeRoute;
+use ExtendsFramework\Router\RouterInterface;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
@@ -26,7 +26,7 @@ class HttpRouterConfigLoaderTest extends TestCase
      *
      * Test that loader returns correct array.
      *
-     * @covers \ExtendsFramework\Http\Router\Framework\ServiceLocator\Loader\HttpRouterConfigLoader::load()
+     * @covers \ExtendsFramework\Router\Framework\ServiceLocator\Loader\HttpRouterConfigLoader::load()
      */
     public function testLoad(): void
     {

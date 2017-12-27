@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\Exception;
+namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception;
 
 use Exception;
-use ExtendsFramework\Http\Router\Framework\Http\Middleware\Controller\ControllerMiddlewareException;
+use ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddlewareException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 
 class ControllerNotFound extends Exception implements ControllerMiddlewareException
@@ -18,7 +18,7 @@ class ControllerNotFound extends Exception implements ControllerMiddlewareExcept
     public function __construct(string $key, ServiceLocatorException $exception)
     {
         parent::__construct(sprintf(
-            'Controller for key "%s" can not be retrieved from service locator. See previous exception for more details.',
+            'Controller for key "%s" can not be retrieved from service locator.',
             $key
         ), 0, $exception);
     }

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Method\Exception;
+namespace ExtendsFramework\Router\Route\Method\Exception;
 
-use ExtendsFramework\Http\Router\Route\Method\MethodRouteException;
+use ExtendsFramework\Router\Route\Method\MethodRouteException;
 use LogicException;
 
 class MethodNotAllowed extends LogicException implements MethodRouteException

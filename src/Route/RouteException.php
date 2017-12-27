@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route;
+namespace ExtendsFramework\Router\Route;
 
-use ExtendsFramework\Http\Router\RouterException;
+use ExtendsFramework\Router\RouterException;
 
 interface RouteException extends RouterException
 {

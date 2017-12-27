@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsFramework\Http\Router\Route\Group;
+namespace ExtendsFramework\Router\Route\Group;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
-use ExtendsFramework\Http\Router\Route\RouteInterface;
-use ExtendsFramework\Http\Router\Route\RouteMatchInterface;
-use ExtendsFramework\Http\Router\Routes;
+use ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
+use ExtendsFramework\Router\Route\RouteInterface;
+use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Routes;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 
@@ -47,7 +47,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
         $outer = $this->route->match($request, $pathOffset);
-        if (!$outer instanceof RouteMatchInterface) {
+        if (! $outer instanceof RouteMatchInterface) {
             return null;
         }
 
@@ -85,7 +85,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): RouteInterface
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['route'], $extra['abstract'] ?? null);
     }
