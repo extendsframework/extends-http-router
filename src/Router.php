@@ -45,7 +45,7 @@ class Router implements RouterInterface
      */
     public function assemble(string $path, array $parameters = null): RequestInterface
     {
-        if (preg_match($this->pattern, $path) === 0) {
+        if (preg_match($this->getPattern(), $path) === 0) {
             throw new InvalidRoutePath($path);
         }
 
@@ -53,5 +53,15 @@ class Router implements RouterInterface
         $route = $this->getRoute(array_shift($routes), empty($routes) === false);
 
         return $route->assemble(new Request(), $routes, $parameters ?? []);
+    }
+
+    /**
+     * Get pattern.
+     *
+     * @return string
+     */
+    protected function getPattern(): string
+    {
+        return $this->pattern;
     }
 }

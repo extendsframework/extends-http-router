@@ -58,8 +58,8 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
         $method = $request->getMethod();
-        if (strtoupper($method) === $this->method) {
-            return new RouteMatch($this->parameters, $pathOffset);
+        if (strtoupper($method) === $this->getMethod()) {
+            return new RouteMatch($this->getParameters(), $pathOffset);
         }
 
         throw new MethodNotAllowed($method, [$this->method]);
@@ -70,7 +70,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
      */
     public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        return $request->withMethod($this->method);
+        return $request->withMethod($this->getMethod());
     }
 
     /**
@@ -79,5 +79,25 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['method'], $extra['parameters'] ?? []);
+    }
+
+    /**
+     * Get method.
+     *
+     * @return string
+     */
+    protected function getMethod(): string
+    {
+        return $this->method;
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array
+     */
+    protected function getParameters(): array
+    {
+        return $this->parameters;
     }
 }

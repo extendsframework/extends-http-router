@@ -19,6 +19,8 @@ class MethodRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -53,6 +55,8 @@ class MethodRouteTest extends TestCase
      * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
+     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      * @covers                   \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed::__construct()
      * @expectedException        \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed
      * @expectedExceptionMessage Method "GET" is not allowed.
@@ -78,6 +82,7 @@ class MethodRouteTest extends TestCase
      * Test that assemble method will return request.
      *
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
      */
     public function testAssemble(): void
     {

@@ -70,14 +70,14 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
             PREG_OFFSET_CAPTURE,
             $pathOffset
         ) === true) {
-            foreach ($this->validators as $parameter => $validator) {
+            foreach ($this->getValidators() as $parameter => $validator) {
                 $result = $validator->validate($matches[$parameter][0]);
                 if ($result->isValid() === false) {
                     return null;
                 }
             }
 
-            return new RouteMatch($this->getParameters($matches), end($matches)[1]);
+            return new RouteMatch($this->getMatchedParameters($matches), end($matches)[1]);
         }
 
         return null;
@@ -88,7 +88,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        $parameters = array_replace_recursive($this->parameters, $parameters);
+        $parameters = array_replace_recursive($this->getParameters(), $parameters);
 
         $uri = $request->getUri();
         $current = $uri->getPath();
@@ -99,7 +99,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
             }
 
             return $parameters[$parameter];
-        }, $this->path);
+        }, $this->getPath());
 
         return $request->withUri(
             $uri->withPath(rtrim($current, '/') . '/' . ltrim($addition, '/'))
@@ -126,14 +126,14 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     }
 
     /**
-     * Get the parameters when the route is matches.
+     * Get the parameters when the route is matched.
      *
      * The $matches will be filtered for integer keys and merged into the default parameters.
      *
      * @param array $matches
      * @return array
      */
-    protected function getParameters(array $matches): array
+    protected function getMatchedParameters(array $matches): array
     {
         $parameters = [];
         foreach ($matches as $key => $match) {
@@ -142,7 +142,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
             }
         }
 
-        return array_replace_recursive($this->parameters, $parameters);
+        return array_replace_recursive($this->getParameters(), $parameters);
     }
 
     /**
@@ -154,8 +154,38 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     {
         $path = preg_replace_callback('~:([a-z][a-z0-9\_]+)~i', function ($match) {
             return sprintf('(?<%s>%s)', $match[1], '[^\/]*');
-        }, $this->path);
+        }, $this->getPath());
 
         return sprintf('~\G(%s)(/|\z)~', $path);
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array
+     */
+    protected function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * Get validators.
+     *
+     * @return ValidatorInterface[]
+     */
+    protected function getValidators(): array
+    {
+        return $this->validators;
+    }
+
+    /**
+     * Get path.
+     *
+     * @return string
+     */
+    protected function getPath(): string
+    {
+        return $this->path;
     }
 }

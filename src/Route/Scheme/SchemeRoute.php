@@ -43,8 +43,8 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if (strtoupper($request->getUri()->getScheme()) === $this->scheme) {
-            return new RouteMatch($this->parameters, $pathOffset);
+        if (strtoupper($request->getUri()->getScheme()) === $this->getScheme()) {
+            return new RouteMatch($this->getParameters(), $pathOffset);
         }
 
         return null;
@@ -58,7 +58,7 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
         return $request->withUri(
             $request
                 ->getUri()
-                ->withScheme($this->scheme)
+                ->withScheme($this->getScheme())
         );
     }
 
@@ -68,5 +68,25 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['scheme'], $extra['parameters'] ?? []);
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array
+     */
+    protected function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * Get scheme.
+     *
+     * @return string
+     */
+    protected function getScheme(): string
+    {
+        return $this->scheme;
     }
 }

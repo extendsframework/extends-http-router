@@ -18,6 +18,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
      * @covers \ExtendsFramework\Router\Routes::getRoutes()
@@ -76,6 +78,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
      * @covers \ExtendsFramework\Router\Routes::getRoutes()
@@ -110,6 +114,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
      * @covers \ExtendsFramework\Router\Routes::getRoutes()
@@ -144,6 +150,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
      * @covers \ExtendsFramework\Router\Routes::getRoutes()
@@ -176,6 +184,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      */
     public function testAssemble(): void
     {
@@ -205,6 +215,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      */
     public function testAssembleChildRoute(): void
     {
@@ -242,6 +254,8 @@ class GroupRouteTest extends TestCase
      *
      * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
      * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
      * @covers                   \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute::__construct()
      * @expectedException        \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute
      * @expectedExceptionMessage Can not assemble a abstract route.

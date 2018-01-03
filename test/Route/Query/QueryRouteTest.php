@@ -23,6 +23,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
      */
     public function testMatch(): void
@@ -86,6 +87,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getParameter()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getResult()
@@ -147,6 +149,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      */
     public function testAssemble(): void
     {
@@ -221,6 +224,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      * @expectedException \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing
      */
     public function testQueryParameterMissing(): void
@@ -245,6 +249,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      * @expectedException \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString
      */
     public function testInvalidQueryString(): void
@@ -282,6 +287,7 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::getParameter()
      */

@@ -47,7 +47,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
         $query = $request->getUri()->getQuery();
 
         $matched = [];
-        foreach ($this->validators as $path => $validator) {
+        foreach ($this->getValidators() as $path => $validator) {
             if (array_key_exists($path, $query) === true) {
                 $value = $query[$path];
 
@@ -74,7 +74,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
         $uri = $request->getUri();
 
         $parameters = array_replace($this->parameters, $uri->getQuery(), $parameters);
-        foreach ($this->validators as $parameter => $validator) {
+        foreach ($this->getValidators() as $parameter => $validator) {
             if (array_key_exists($parameter, $parameters) === false) {
                 throw new QueryParameterMissing($parameter);
             }
@@ -122,5 +122,15 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
     protected function getParameters(array $matches): array
     {
         return array_replace($this->parameters, $matches);
+    }
+
+    /**
+     * Get validators.
+     *
+     * @return ValidatorInterface[]
+     */
+    protected function getValidators(): array
+    {
+        return $this->validators;
     }
 }

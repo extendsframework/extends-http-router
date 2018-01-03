@@ -18,6 +18,7 @@ class AbstractControllerTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::normalizeAction()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::getArguments()
@@ -63,6 +64,7 @@ class AbstractControllerTest extends TestCase
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::execute()
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getAction()
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getMethod()
+     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
      * @covers                   \ExtendsFramework\Router\Controller\Exception\ActionNotFound::__construct()
      * @expectedException        \ExtendsFramework\Router\Controller\Exception\ActionNotFound
      * @expectedExceptionMessage No controller action was found in request.
@@ -92,6 +94,7 @@ class AbstractControllerTest extends TestCase
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::execute()
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getAction()
      * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getMethod()
+     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
      * @covers                   \ExtendsFramework\Router\Controller\Exception\ParameterNotFound::__construct()
      * @expectedException        \ExtendsFramework\Router\Controller\Exception\ParameterNotFound
      * @expectedExceptionMessage Parameter name "someId" can not be found in route match parameters and has no default

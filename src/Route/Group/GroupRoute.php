@@ -27,7 +27,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var RouteInterface
      */
-    protected $route;
+    protected $innerRoute;
 
     /**
      * Create a group route.
@@ -37,7 +37,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     public function __construct(RouteInterface $route, bool $abstract = null)
     {
-        $this->route = $route;
+        $this->innerRoute = $route;
         $this->abstract = $abstract ?? true;
     }
 
@@ -46,7 +46,9 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        $outer = $this->route->match($request, $pathOffset);
+        $outer = $this
+            ->getInnerRoute()
+            ->match($request, $pathOffset);
         if (! $outer instanceof RouteMatchInterface) {
             return null;
         }
@@ -56,7 +58,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
             return $outer->merge($inner);
         }
 
-        if ($this->abstract === false) {
+        if ($this->isAbstract() === false) {
             return $outer;
         }
 
@@ -68,9 +70,11 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        $request = $this->route->assemble($request, $path, $parameters);
+        $request = $this
+            ->getInnerRoute()
+            ->assemble($request, $path, $parameters);
         if (empty($path) === true) {
-            if ($this->abstract === true) {
+            if ($this->isAbstract() === true) {
                 throw new AssembleAbstractGroupRoute();
             }
 
@@ -88,5 +92,25 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['route'], $extra['abstract'] ?? null);
+    }
+
+    /**
+     * Get abstract.
+     *
+     * @return bool
+     */
+    protected function isAbstract(): bool
+    {
+        return $this->abstract;
+    }
+
+    /**
+     * Get inner route.
+     *
+     * @return RouteInterface
+     */
+    protected function getInnerRoute(): RouteInterface
+    {
+        return $this->innerRoute;
     }
 }

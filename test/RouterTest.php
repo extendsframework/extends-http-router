@@ -224,6 +224,7 @@ class RouterTest extends TestCase
      * Test that route will be assembled and request will be returned.
      *
      * @covers \ExtendsFramework\Router\Router::assemble()
+     * @covers \ExtendsFramework\Router\Router::getPattern()
      */
     public function testAssemble(): void
     {

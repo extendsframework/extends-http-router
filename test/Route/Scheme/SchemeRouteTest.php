@@ -20,6 +20,8 @@ class SchemeRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getScheme()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -60,6 +62,8 @@ class SchemeRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getScheme()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getParameters()
      */
     public function testNoMatch(): void
     {
@@ -91,6 +95,7 @@ class SchemeRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getScheme()
      */
     public function testAssemble(): void
     {

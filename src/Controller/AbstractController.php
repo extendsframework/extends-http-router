@@ -60,7 +60,7 @@ abstract class AbstractController implements ControllerInterface
     {
         $action = $this->getAction($routeMatch);
 
-        return new ReflectionMethod($this, $action . $this->postfix);
+        return new ReflectionMethod($this, $action . $this->getPostfix());
     }
 
     /**
@@ -147,5 +147,15 @@ abstract class AbstractController implements ControllerInterface
     protected function getRouteMatch(): RouteMatchInterface
     {
         return $this->routeMatch;
+    }
+
+    /**
+     * Get Postfix.
+     *
+     * @return string
+     */
+    protected function getPostfix(): string
+    {
+        return $this->postfix;
     }
 }

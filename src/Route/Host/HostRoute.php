@@ -43,8 +43,8 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if ($request->getUri()->getHost() === $this->host) {
-            return new RouteMatch($this->parameters, $pathOffset);
+        if ($request->getUri()->getHost() === $this->getHost()) {
+            return new RouteMatch($this->getParameters(), $pathOffset);
         }
 
         return null;
@@ -58,7 +58,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
         return $request->withUri(
             $request
                 ->getUri()
-                ->withHost($this->host)
+                ->withHost($this->getHost())
         );
     }
 
@@ -68,5 +68,25 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static($extra['host'], $extra['parameters'] ?? []);
+    }
+
+    /**
+     * Get host.
+     *
+     * @return string
+     */
+    protected function getHost(): string
+    {
+        return $this->host;
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array
+     */
+    protected function getParameters(): array
+    {
+        return $this->parameters;
     }
 }
