@@ -63,16 +63,16 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if ((bool)preg_match(
+        if (preg_match(
             $this->getPattern(),
             $request->getUri()->getPath(),
             $matches,
             PREG_OFFSET_CAPTURE,
             $pathOffset
-        ) === true) {
+        )) {
             foreach ($this->getValidators() as $parameter => $validator) {
                 $result = $validator->validate($matches[$parameter][0]);
-                if ($result->isValid() === false) {
+                if (!$result->isValid()) {
                     return null;
                 }
             }
@@ -94,7 +94,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
         $current = $uri->getPath();
         $addition = preg_replace_callback('~:([a-z][a-z0-9\_]+)~i', function ($match) use ($parameters) {
             $parameter = $match[1];
-            if (array_key_exists($parameter, $parameters) === false) {
+            if (!array_key_exists($parameter, $parameters)) {
                 throw new PathParameterMissing($parameter);
             }
 
@@ -113,7 +113,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $parameter => $validator) {
-            if (is_string($validator) === true) {
+            if (is_string($validator)) {
                 $validator = [
                     'name' => $validator,
                 ];

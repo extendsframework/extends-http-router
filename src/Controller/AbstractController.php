@@ -73,7 +73,7 @@ abstract class AbstractController implements ControllerInterface
     private function getAction(RouteMatchInterface $routeMatch): string
     {
         $parameters = $routeMatch->getParameters();
-        if (array_key_exists('action', $parameters) === false) {
+        if (!array_key_exists('action', $parameters)) {
             throw new ActionNotFound();
         }
 
@@ -96,8 +96,8 @@ abstract class AbstractController implements ControllerInterface
         foreach ($method->getParameters() as $parameter) {
             $name = $parameter->getName();
 
-            if (array_key_exists($name, $parameters) === false) {
-                if ($parameter->isDefaultValueAvailable() === true) {
+            if (!array_key_exists($name, $parameters)) {
+                if ($parameter->isDefaultValueAvailable()) {
                     $arguments[] = $parameter->getDefaultValue();
                 } elseif ($parameter->allowsNull()) {
                     $arguments[] = null;

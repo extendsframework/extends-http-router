@@ -49,7 +49,7 @@ class RouterFactory implements ServiceFactoryInterface
     private function createRoute(ServiceLocatorInterface $serviceLocator, array $config): RouteInterface
     {
         $route = $serviceLocator->getService($config['name'], $config['options'] ?? []);
-        if (array_key_exists('children', $config) === true) {
+        if (array_key_exists('children', $config)) {
             $route = $this->createGroup($serviceLocator, $route, $config['children'], $config['abstract'] ?? null);
         }
 

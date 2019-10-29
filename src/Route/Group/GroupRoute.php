@@ -58,7 +58,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
             return $outer->merge($inner);
         }
 
-        if ($this->isAbstract() === false) {
+        if (!$this->isAbstract()) {
             return $outer;
         }
 
@@ -73,8 +73,8 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
         $request = $this
             ->getInnerRoute()
             ->assemble($request, $path, $parameters);
-        if (empty($path) === true) {
-            if ($this->isAbstract() === true) {
+        if (empty($path)) {
+            if ($this->isAbstract()) {
                 throw new AssembleAbstractGroupRoute();
             }
 
@@ -82,7 +82,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
         }
 
         return $this
-            ->getRoute(array_shift($path), empty($path) === false)
+            ->getRoute(array_shift($path), !empty($path))
             ->assemble($request, $path, $parameters);
     }
 

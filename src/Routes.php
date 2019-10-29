@@ -101,12 +101,12 @@ trait Routes
      */
     private function getRoute(string $name, bool $groupRoute = null): RouteInterface
     {
-        if (array_key_exists($name, $this->routes) === false) {
+        if (!array_key_exists($name, $this->routes)) {
             throw new RouteNotFound($name);
         }
 
         $route = $this->routes[$name];
-        if ($route instanceof GroupRoute || $groupRoute === false) {
+        if ($route instanceof GroupRoute || !$groupRoute) {
             return $route;
         }
 

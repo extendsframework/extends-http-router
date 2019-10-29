@@ -48,16 +48,16 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
 
         $matched = [];
         foreach ($this->getValidators() as $path => $validator) {
-            if (array_key_exists($path, $query) === true) {
+            if (array_key_exists($path, $query)) {
                 $value = $query[$path];
 
                 $result = $validator->validate($value, $query);
-                if ($result->isValid() === false) {
+                if (!$result->isValid()) {
                     throw new InvalidQueryString($path, $result);
                 }
 
                 $matched[$path] = $value;
-            } elseif (array_key_exists($path, $this->parameters) === false) {
+            } elseif (!array_key_exists($path, $this->parameters)) {
                 throw new QueryParameterMissing($path);
             }
         }
@@ -75,12 +75,12 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
 
         $parameters = array_replace($this->parameters, $uri->getQuery(), $parameters);
         foreach ($this->getValidators() as $parameter => $validator) {
-            if (array_key_exists($parameter, $parameters) === false) {
+            if (!array_key_exists($parameter, $parameters)) {
                 throw new QueryParameterMissing($parameter);
             }
 
             $result = $validator->validate($parameters[$parameter]);
-            if ($result->isValid() === false) {
+            if (!$result->isValid()) {
                 throw new InvalidQueryString($parameter, $result);
             }
 
@@ -101,7 +101,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
     {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $parameter => $validator) {
-            if (is_string($validator) === true) {
+            if (is_string($validator)) {
                 $validator = [
                     'name' => $validator,
                 ];

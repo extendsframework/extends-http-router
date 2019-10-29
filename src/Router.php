@@ -31,7 +31,7 @@ class Router implements RouterInterface
                 $parameters = $match->getParameters();
                 $query = $request->getUri()->getQuery();
 
-                if (empty(array_diff_key($query, $parameters)) === true) {
+                if (empty(array_diff_key($query, $parameters))) {
                     return $match;
                 }
             }
@@ -50,7 +50,7 @@ class Router implements RouterInterface
         }
 
         $routes = explode('/', $path);
-        $route = $this->getRoute(array_shift($routes), empty($routes) === false);
+        $route = $this->getRoute(array_shift($routes), !empty($routes));
 
         return $route->assemble(new Request(), $routes, $parameters ?? []);
     }

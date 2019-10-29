@@ -42,7 +42,7 @@ class ControllerMiddleware implements MiddlewareInterface
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
             $parameters = $match->getParameters();
-            if (array_key_exists('controller', $parameters) === true) {
+            if (array_key_exists('controller', $parameters)) {
                 try {
                     $controller = $this->getController($parameters['controller']);
                 } catch (ServiceLocatorException $exception) {
