@@ -48,6 +48,38 @@ class MethodRouteTest extends TestCase
     }
 
     /**
+     * Match without parameters.
+     *
+     * Test that POST method will be matched and a instance of RouteMatchInterface will be returned.
+     *
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
+     */
+    public function testMatchWithoutParameters(): void
+    {
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('getMethod')
+            ->willReturn('POST');
+
+        /**
+         * @var RequestInterface $request
+         */
+        $method = new MethodRoute('POST');
+        $match = $method->match($request, 5);
+
+        $this->assertInstanceOf(RouteMatchInterface::class, $match);
+        if ($match instanceof RouteMatchInterface) {
+            $this->assertSame(5, $match->getPathOffset());
+            $this->assertEmpty($match->getParameters());
+        }
+    }
+
+    /**
      * Method not allowed.
      *
      * Test that method GET is not allowed and an exception will be thrown.
@@ -83,6 +115,7 @@ class MethodRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::assemble()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      */
     public function testAssemble(): void
     {
