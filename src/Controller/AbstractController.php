@@ -8,6 +8,7 @@ use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
 use ExtendsFramework\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ReflectionException;
 use ReflectionMethod;
 
 abstract class AbstractController implements ControllerInterface
@@ -35,6 +36,7 @@ abstract class AbstractController implements ControllerInterface
 
     /**
      * @inheritDoc
+     * @throws ReflectionException
      */
     public function execute(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface
     {
@@ -55,6 +57,7 @@ abstract class AbstractController implements ControllerInterface
      * @param RouteMatchInterface $routeMatch
      * @return ReflectionMethod
      * @throws ControllerException
+     * @throws ReflectionException
      */
     private function getMethod(RouteMatchInterface $routeMatch): ReflectionMethod
     {
@@ -87,6 +90,7 @@ abstract class AbstractController implements ControllerInterface
      * @param RouteMatchInterface $routeMatch
      * @return array
      * @throws ParameterNotFound
+     * @throws ReflectionException
      */
     private function getArguments(ReflectionMethod $method, RouteMatchInterface $routeMatch): array
     {
@@ -120,13 +124,7 @@ abstract class AbstractController implements ControllerInterface
      */
     private function normalizeAction(string $action): string
     {
-        $action = strtolower($action);
-        $action = str_replace(['_', '-', '.'], ' ', $action);
-        $action = ucwords($action);
-        $action = str_replace(' ', '', $action);
-        $action = lcfirst($action);
-
-        return $action;
+        return lcfirst(str_replace(' ', '', ucwords(str_replace(['_', '-', '.'], ' ', strtolower($action)))));
     }
 
     /**
