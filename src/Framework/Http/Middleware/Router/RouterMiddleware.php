@@ -13,6 +13,7 @@ use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\RouterException;
 use ExtendsFramework\Router\RouterInterface;
 
 class RouterMiddleware implements MiddlewareInterface
@@ -36,6 +37,7 @@ class RouterMiddleware implements MiddlewareInterface
 
     /**
      * @inheritDoc
+     * @throws RouterException
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
