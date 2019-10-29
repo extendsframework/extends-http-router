@@ -43,8 +43,8 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Create a method route.
      *
-     * @param string $method
-     * @param array  $parameters
+     * @param string     $method
+     * @param array|null $parameters
      */
     public function __construct(string $method, array $parameters = null)
     {
