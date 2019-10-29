@@ -10,6 +10,7 @@ use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatch;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
+use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
 
@@ -25,18 +26,18 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Default parameters to return when route is matched.
      *
-     * @var array
+     * @var array|null
      */
     private $parameters;
 
     /**
      * @param array $validators
-     * @param array $parameters
+     * @param array|null $parameters
      */
     public function __construct(array $validators, array $parameters = null)
     {
         $this->validators = $validators;
-        $this->parameters = $parameters ?? [];
+        $this->parameters = $parameters;
     }
 
     /**
@@ -57,12 +58,12 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
                 }
 
                 $matched[$path] = $value;
-            } elseif (!array_key_exists($path, $this->parameters)) {
+            } elseif (!array_key_exists($path, $this->getParameters())) {
                 throw new QueryParameterMissing($path);
             }
         }
 
-        return new RouteMatch($this->getParameters($matched), $pathOffset);
+        return new RouteMatch($this->replaceParameters($matched), $pathOffset);
     }
 
     /**
@@ -73,7 +74,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
         $query = [];
         $uri = $request->getUri();
 
-        $parameters = array_replace($this->parameters, $uri->getQuery(), $parameters);
+        $parameters = array_replace($this->getParameters(), $uri->getQuery(), $parameters);
         foreach ($this->getValidators() as $parameter => $validator) {
             if (!array_key_exists($parameter, $parameters)) {
                 throw new QueryParameterMissing($parameter);
@@ -96,6 +97,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
 
     /**
      * @inheritDoc
+     * @throws ServiceLocatorException
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
@@ -119,9 +121,23 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
      * @param array $matches
      * @return array
      */
-    private function getParameters(array $matches): array
+    private function replaceParameters(array $matches): array
     {
-        return array_replace($this->parameters, $matches);
+        return array_replace($this->getParameters(), $matches);
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array
+     */
+    private function getParameters(): array
+    {
+        if ($this->parameters === null) {
+            $this->parameters = [];
+        }
+
+        return $this->parameters;
     }
 
     /**
