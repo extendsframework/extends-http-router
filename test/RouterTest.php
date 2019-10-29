@@ -41,7 +41,7 @@ class RouterTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getUri')
             ->willReturn($uri);
 
@@ -184,7 +184,7 @@ class RouterTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getUri')
             ->willReturn($uri);
 

@@ -26,14 +26,13 @@ class Router implements RouterInterface
     public function route(RequestInterface $request): RouteMatchInterface
     {
         $match = $this->matchRoutes($request, 0);
-        if ($match instanceof RouteMatchInterface) {
-            if ($match->getPathOffset() === strlen($request->getUri()->getPath())) {
-                $parameters = $match->getParameters();
-                $query = $request->getUri()->getQuery();
+        $uri = $request->getUri();
+        if ($match instanceof RouteMatchInterface && $match->getPathOffset() === strlen($uri->getPath())) {
+            $parameters = $match->getParameters();
+            $query = $uri->getQuery();
 
-                if (empty(array_diff_key($query, $parameters))) {
-                    return $match;
-                }
+            if (empty(array_diff_key($query, $parameters))) {
+                return $match;
             }
         }
 
