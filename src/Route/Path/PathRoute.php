@@ -9,6 +9,7 @@ use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatch;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
+use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
 
@@ -92,7 +93,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
 
         $uri = $request->getUri();
         $current = $uri->getPath();
-        $addition = preg_replace_callback('~:([a-z][a-z0-9\_]+)~i', function ($match) use ($parameters) {
+        $addition = preg_replace_callback('~:([a-z][a-z0-9_]+)~i', static function ($match) use ($parameters) {
             $parameter = $match[1];
             if (!array_key_exists($parameter, $parameters)) {
                 throw new PathParameterMissing($parameter);
@@ -108,6 +109,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
 
     /**
      * @inheritDoc
+     * @throws ServiceLocatorException
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
@@ -152,7 +154,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     private function getPattern(): string
     {
-        $path = preg_replace_callback('~:([a-z][a-z0-9\_]+)~i', function ($match) {
+        $path = preg_replace_callback('~:([a-z][a-z0-9_]+)~i', static function ($match) {
             return sprintf('(?<%s>%s)', $match[1], '[^\/]*');
         }, $this->getPath());
 
