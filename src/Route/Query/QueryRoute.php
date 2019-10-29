@@ -20,14 +20,14 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var ValidatorInterface[]
      */
-    protected $validators;
+    private $validators;
 
     /**
      * Default parameters to return when route is matched.
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * @param array $validators
@@ -119,7 +119,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
      * @param array $matches
      * @return array
      */
-    protected function getParameters(array $matches): array
+    private function getParameters(array $matches): array
     {
         return array_replace($this->parameters, $matches);
     }
@@ -129,7 +129,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return ValidatorInterface[]
      */
-    protected function getValidators(): array
+    private function getValidators(): array
     {
         return $this->validators;
     }

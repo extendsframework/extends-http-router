@@ -22,7 +22,7 @@ class RouterMiddleware implements MiddlewareInterface
      *
      * @var RouterInterface
      */
-    protected $router;
+    private $router;
 
     /**
      * Create a new router middleware.
@@ -64,7 +64,7 @@ class RouterMiddleware implements MiddlewareInterface
      * @param MethodNotAllowed $exception
      * @return ResponseInterface
      */
-    protected function getMethodNotAllowedResponse(MethodNotAllowed $exception): ResponseInterface
+    private function getMethodNotAllowedResponse(MethodNotAllowed $exception): ResponseInterface
     {
         return (new Response())
             ->withStatusCode(405)
@@ -83,7 +83,7 @@ class RouterMiddleware implements MiddlewareInterface
      * @param NotFound $exception
      * @return ResponseInterface
      */
-    protected function getNotFoundResponse(NotFound $exception): ResponseInterface
+    private function getNotFoundResponse(NotFound $exception): ResponseInterface
     {
         return (new Response())
             ->withStatusCode(404)
@@ -103,7 +103,7 @@ class RouterMiddleware implements MiddlewareInterface
      * @param InvalidQueryString $exception
      * @return ResponseInterface
      */
-    protected function getInvalidQueryStringResponse(InvalidQueryString $exception): ResponseInterface
+    private function getInvalidQueryStringResponse(InvalidQueryString $exception): ResponseInterface
     {
         return (new Response())
             ->withStatusCode(400)
@@ -121,7 +121,7 @@ class RouterMiddleware implements MiddlewareInterface
      * @param QueryParameterMissing $exception
      * @return ResponseInterface
      */
-    protected function getQueryParameterMissingResponse(QueryParameterMissing $exception): ResponseInterface
+    private function getQueryParameterMissingResponse(QueryParameterMissing $exception): ResponseInterface
     {
         return (new Response())
             ->withStatusCode(400)

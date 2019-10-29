@@ -17,14 +17,14 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Scheme to match.
      *
      * @var string
      */
-    protected $scheme;
+    private $scheme;
 
     /**
      * Create a new scheme route.
@@ -75,7 +75,7 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return array
      */
-    protected function getParameters(): array
+    private function getParameters(): array
     {
         return $this->parameters;
     }
@@ -85,7 +85,7 @@ class SchemeRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return string
      */
-    protected function getScheme(): string
+    private function getScheme(): string
     {
         return $this->scheme;
     }

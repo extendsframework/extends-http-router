@@ -17,14 +17,14 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var string
      */
-    protected $host;
+    private $host;
 
     /**
      * Default parameters to return.
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Create a method route.
@@ -75,7 +75,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return string
      */
-    protected function getHost(): string
+    private function getHost(): string
     {
         return $this->host;
     }
@@ -85,7 +85,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return array
      */
-    protected function getParameters(): array
+    private function getParameters(): array
     {
         return $this->parameters;
     }

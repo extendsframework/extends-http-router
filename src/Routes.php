@@ -18,7 +18,7 @@ trait Routes
      *
      * @var RouteInterface[]
      */
-    protected $routes = [];
+    private $routes = [];
 
     /**
      * Add $route to routes.
@@ -44,7 +44,7 @@ trait Routes
      * @return RouteMatchInterface|null
      * @throws Route\RouteException
      */
-    protected function matchRoutes(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    private function matchRoutes(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
         $notAllowed = null;
         $routes = $this->getRoutes();
@@ -77,7 +77,7 @@ trait Routes
      *
      * @return RouteInterface[]
      */
-    protected function getRoutes(): array
+    private function getRoutes(): array
     {
         uasort($this->routes, function (RouteInterface $left, RouteInterface $right) {
             if ($left instanceof GroupRoute || $right instanceof GroupRoute) {
@@ -99,7 +99,7 @@ trait Routes
      * @throws GroupRouteExpected   When route is not GroupRoute, but was expected to be.
      * @throws RouteNotFound        When route for $name can not be found.
      */
-    protected function getRoute(string $name, bool $groupRoute = null): RouteInterface
+    private function getRoute(string $name, bool $groupRoute = null): RouteInterface
     {
         if (array_key_exists($name, $this->routes) === false) {
             throw new RouteNotFound($name);

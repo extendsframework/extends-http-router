@@ -13,14 +13,14 @@ class MethodNotAllowed extends LogicException implements MethodRouteException
      *
      * @var string
      */
-    protected $method;
+    private $method;
 
     /**
      * Allowed HTTP methods.
      *
      * @var array
      */
-    protected $allowedMethods;
+    private $allowedMethods;
 
     /**
      * MethodNotAllowed constructor.

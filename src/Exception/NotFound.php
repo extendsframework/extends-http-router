@@ -14,7 +14,7 @@ class NotFound extends LogicException implements RouterException
      *
      * @var RequestInterface
      */
-    protected $request;
+    private $request;
 
     /**
      * NotFound constructor.

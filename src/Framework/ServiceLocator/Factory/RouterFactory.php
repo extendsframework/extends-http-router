@@ -46,7 +46,7 @@ class RouterFactory implements ServiceFactoryInterface
      * @return RouteInterface
      * @throws ServiceLocatorException
      */
-    protected function createRoute(ServiceLocatorInterface $serviceLocator, array $config): RouteInterface
+    private function createRoute(ServiceLocatorInterface $serviceLocator, array $config): RouteInterface
     {
         $route = $serviceLocator->getService($config['name'], $config['options'] ?? []);
         if (array_key_exists('children', $config) === true) {
@@ -66,7 +66,7 @@ class RouterFactory implements ServiceFactoryInterface
      * @return RouteInterface
      * @throws ServiceLocatorException
      */
-    protected function createGroup(
+    private function createGroup(
         ServiceLocatorInterface $serviceLocator,
         RouteInterface $route,
         array $children,

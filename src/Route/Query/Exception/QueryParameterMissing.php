@@ -13,7 +13,7 @@ class QueryParameterMissing extends LogicException implements RouteException
      *
      * @var string
      */
-    protected $parameter;
+    private $parameter;
 
     /**
      * RequiredParameterMissing constructor.

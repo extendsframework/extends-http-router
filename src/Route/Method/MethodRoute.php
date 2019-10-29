@@ -31,14 +31,14 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var string
      */
-    protected $method;
+    private $method;
 
     /**
      * Default parameters to return.
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Create a method route.
@@ -86,7 +86,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return string
      */
-    protected function getMethod(): string
+    private function getMethod(): string
     {
         return $this->method;
     }
@@ -96,7 +96,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return array
      */
-    protected function getParameters(): array
+    private function getParameters(): array
     {
         return $this->parameters;
     }

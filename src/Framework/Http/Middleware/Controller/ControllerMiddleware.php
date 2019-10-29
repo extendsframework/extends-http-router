@@ -22,7 +22,7 @@ class ControllerMiddleware implements MiddlewareInterface
      *
      * @var ServiceLocatorInterface
      */
-    protected $serviceLocator;
+    private $serviceLocator;
 
     /**
      * ControllerMiddleware constructor.
@@ -67,7 +67,7 @@ class ControllerMiddleware implements MiddlewareInterface
      * @return ControllerInterface
      * @throws ServiceLocatorException
      */
-    protected function getController(string $key): ControllerInterface
+    private function getController(string $key): ControllerInterface
     {
         return $this->serviceLocator->getService($key);
     }

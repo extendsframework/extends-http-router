@@ -17,21 +17,21 @@ abstract class AbstractController implements ControllerInterface
      *
      * @var string
      */
-    protected $postfix = 'Action';
+    private $postfix = 'Action';
 
     /**
      * Request.
      *
      * @var RequestInterface
      */
-    protected $request;
+    private $request;
 
     /**
      * Route match.
      *
      * @var RouteMatchInterface
      */
-    protected $routeMatch;
+    private $routeMatch;
 
     /**
      * @inheritDoc
@@ -56,7 +56,7 @@ abstract class AbstractController implements ControllerInterface
      * @return ReflectionMethod
      * @throws ControllerException
      */
-    protected function getMethod(RouteMatchInterface $routeMatch): ReflectionMethod
+    private function getMethod(RouteMatchInterface $routeMatch): ReflectionMethod
     {
         $action = $this->getAction($routeMatch);
 
@@ -70,7 +70,7 @@ abstract class AbstractController implements ControllerInterface
      * @return string
      * @throws ControllerException
      */
-    protected function getAction(RouteMatchInterface $routeMatch): string
+    private function getAction(RouteMatchInterface $routeMatch): string
     {
         $parameters = $routeMatch->getParameters();
         if (array_key_exists('action', $parameters) === false) {
@@ -88,7 +88,7 @@ abstract class AbstractController implements ControllerInterface
      * @return array
      * @throws ParameterNotFound
      */
-    protected function getArguments(ReflectionMethod $method, RouteMatchInterface $routeMatch): array
+    private function getArguments(ReflectionMethod $method, RouteMatchInterface $routeMatch): array
     {
         $parameters = $routeMatch->getParameters();
 
@@ -118,7 +118,7 @@ abstract class AbstractController implements ControllerInterface
      * @param string $action
      * @return string
      */
-    protected function normalizeAction(string $action): string
+    private function normalizeAction(string $action): string
     {
         $action = strtolower($action);
         $action = str_replace(['_', '-', '.'], ' ', $action);
@@ -154,7 +154,7 @@ abstract class AbstractController implements ControllerInterface
      *
      * @return string
      */
-    protected function getPostfix(): string
+    private function getPostfix(): string
     {
         return $this->postfix;
     }

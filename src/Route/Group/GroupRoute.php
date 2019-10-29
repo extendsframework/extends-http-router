@@ -20,14 +20,14 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var bool
      */
-    protected $abstract;
+    private $abstract;
 
     /**
      * Route to match.
      *
      * @var RouteInterface
      */
-    protected $innerRoute;
+    private $innerRoute;
 
     /**
      * Create a group route.
@@ -99,7 +99,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return bool
      */
-    protected function isAbstract(): bool
+    private function isAbstract(): bool
     {
         return $this->abstract;
     }
@@ -109,7 +109,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return RouteInterface
      */
-    protected function getInnerRoute(): RouteInterface
+    private function getInnerRoute(): RouteInterface
     {
         return $this->innerRoute;
     }

@@ -19,21 +19,21 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * @var ValidatorInterface[]
      */
-    protected $validators;
+    private $validators;
 
     /**
      * Default parameters to return when route is matched.
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Path to match.
      *
      * @var string
      */
-    protected $path;
+    private $path;
 
     /**
      * Create new path route.
@@ -133,7 +133,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      * @param array $matches
      * @return array
      */
-    protected function getMatchedParameters(array $matches): array
+    private function getMatchedParameters(array $matches): array
     {
         $parameters = [];
         foreach ($matches as $key => $match) {
@@ -150,7 +150,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return string
      */
-    protected function getPattern(): string
+    private function getPattern(): string
     {
         $path = preg_replace_callback('~:([a-z][a-z0-9\_]+)~i', function ($match) {
             return sprintf('(?<%s>%s)', $match[1], '[^\/]*');
@@ -164,7 +164,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return array
      */
-    protected function getParameters(): array
+    private function getParameters(): array
     {
         return $this->parameters;
     }
@@ -174,7 +174,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return ValidatorInterface[]
      */
-    protected function getValidators(): array
+    private function getValidators(): array
     {
         return $this->validators;
     }
@@ -184,7 +184,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * @return string
      */
-    protected function getPath(): string
+    private function getPath(): string
     {
         return $this->path;
     }

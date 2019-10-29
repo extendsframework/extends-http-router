@@ -18,7 +18,7 @@ class Router implements RouterInterface
      *
      * @var string
      */
-    protected $pattern = '/^([a-z0-9\-\_]+)((?:\/([a-z0-9\-\_]+))*)$/i';
+    private $pattern = '/^([a-z0-9\-\_]+)((?:\/([a-z0-9\-\_]+))*)$/i';
 
     /**
      * @inheritDoc
@@ -60,7 +60,7 @@ class Router implements RouterInterface
      *
      * @return string
      */
-    protected function getPattern(): string
+    private function getPattern(): string
     {
         return $this->pattern;
     }

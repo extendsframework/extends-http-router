@@ -14,14 +14,14 @@ class InvalidQueryString extends InvalidArgumentException implements QueryRouteE
      *
      * @var string
      */
-    protected $parameter;
+    private $parameter;
 
     /**
      * Validation result.
      *
      * @var ResultInterface
      */
-    protected $result;
+    private $result;
 
     /**
      * InvalidParameterValue constructor.

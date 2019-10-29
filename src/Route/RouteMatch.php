@@ -10,14 +10,14 @@ class RouteMatch implements RouteMatchInterface
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Request URI path offset.
      *
      * @var int
      */
-    protected $pathOffset;
+    private $pathOffset;
 
     /**
      * Create a route match.
