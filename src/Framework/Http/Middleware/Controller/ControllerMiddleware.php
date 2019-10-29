@@ -67,7 +67,7 @@ class ControllerMiddleware implements MiddlewareInterface
      * @return ControllerInterface
      * @throws ServiceLocatorException
      */
-    private function getController(string $key): ControllerInterface
+    private function getController(string $key): object
     {
         return $this->serviceLocator->getService($key);
     }
