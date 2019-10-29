@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Router;
 
+use Exception;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Exception\GroupRouteExpected;
 use ExtendsFramework\Router\Exception\RouteNotFound;
@@ -10,6 +11,7 @@ use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
+use ExtendsFramework\Router\Route\RouteException;
 
 trait Routes
 {
@@ -27,7 +29,7 @@ trait Routes
      * @param string         $name
      * @return $this
      */
-    public function addRoute(RouteInterface $route, string $name)
+    public function addRoute(RouteInterface $route, string $name): self
     {
         $this->routes[$name] = $route;
 
@@ -42,7 +44,7 @@ trait Routes
      * @param RequestInterface $request
      * @param int              $pathOffset
      * @return RouteMatchInterface|null
-     * @throws Route\RouteException
+     * @throws RouteException|Exception
      */
     private function matchRoutes(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
@@ -79,7 +81,7 @@ trait Routes
      */
     private function getRoutes(): array
     {
-        uasort($this->routes, function (RouteInterface $left, RouteInterface $right) {
+        uasort($this->routes, static function (RouteInterface $left, RouteInterface $right) {
             if ($left instanceof GroupRoute || $right instanceof GroupRoute) {
                 return 1;
             }
