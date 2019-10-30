@@ -62,7 +62,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
             return new RouteMatch($this->getParameters(), $pathOffset);
         }
 
-        throw new MethodNotAllowed($method, [$this->method]);
+        throw new MethodNotAllowed($method, [$this->getMethod()]);
     }
 
     /**
