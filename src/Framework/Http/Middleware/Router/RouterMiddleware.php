@@ -42,7 +42,9 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         try {
-            $match = $this->router->route($request);
+            $match = $this
+                ->getRouter()
+                ->route($request);
         } catch (MethodNotAllowed $exception) {
             return $this->getMethodNotAllowedResponse($exception);
         } catch (NotFound $exception) {
@@ -58,6 +60,16 @@ class RouterMiddleware implements MiddlewareInterface
         }
 
         return $chain->proceed($request);
+    }
+
+    /**
+     * Get router.
+     *
+     * @return RouterInterface
+     */
+    private function getRouter(): RouterInterface
+    {
+        return $this->router;
     }
 
     /**
