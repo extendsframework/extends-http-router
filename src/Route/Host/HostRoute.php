@@ -22,7 +22,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Default parameters to return.
      *
-     * @var array
+     * @var array|null
      */
     private $parameters;
 
@@ -35,7 +35,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(string $host, array $parameters = null)
     {
         $this->host = $host;
-        $this->parameters = $parameters ?? [];
+        $this->parameters = $parameters;
     }
 
     /**
@@ -87,6 +87,10 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      */
     private function getParameters(): array
     {
+        if ($this->parameters === null) {
+            $this->parameters = [];
+        }
+
         return $this->parameters;
     }
 }

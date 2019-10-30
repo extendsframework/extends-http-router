@@ -18,7 +18,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     /**
      * If this can be matched.
      *
-     * @var bool
+     * @var bool|null
      */
     private $abstract;
 
@@ -38,7 +38,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(RouteInterface $route, bool $abstract = null)
     {
         $this->innerRoute = $route;
-        $this->abstract = $abstract ?? true;
+        $this->abstract = $abstract;
     }
 
     /**
@@ -101,6 +101,10 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     private function isAbstract(): bool
     {
+        if ($this->abstract === null) {
+            $this->abstract = true;
+        }
+
         return $this->abstract;
     }
 
