@@ -8,7 +8,6 @@ use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
@@ -71,14 +70,12 @@ class QueryRouteTest extends TestCase
         ]);
         $match = $path->match($request, 4);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $match);
-        if ($match instanceof RouteMatchInterface) {
-            $this->assertSame(4, $match->getPathOffset());
-            $this->assertSame([
-                'offset' => '0',
-                'limit' => '20',
-            ], $match->getParameters());
-        }
+        $this->assertIsObject($match);
+        $this->assertSame(4, $match->getPathOffset());
+        $this->assertSame([
+            'offset' => '0',
+            'limit' => '20',
+        ], $match->getParameters());
     }
 
     /**

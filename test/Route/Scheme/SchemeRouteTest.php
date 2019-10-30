@@ -6,7 +6,6 @@ namespace ExtendsFramework\Router\Route\Scheme;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -45,13 +44,47 @@ class SchemeRouteTest extends TestCase
         ]);
         $match = $scheme->match($request, 5);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $match);
-        if ($match instanceof RouteMatchInterface) {
-            $this->assertSame(5, $match->getPathOffset());
-            $this->assertSame([
-                'foo' => 'bar',
-            ], $match->getParameters());
-        }
+        $this->assertIsObject($match);
+        $this->assertSame(5, $match->getPathOffset());
+        $this->assertSame([
+            'foo' => 'bar',
+        ], $match->getParameters());
+    }
+
+    /**
+     * Match without parameters.
+     *
+     * Test that route will match scheme HTTPS and return instance of RouteMatchInterface.
+     *
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getScheme()
+     * @covers \ExtendsFramework\Router\Route\Scheme\SchemeRoute::getParameters()
+     */
+    public function testMatchWithoutParameters(): void
+    {
+        $uri = $this->createMock(UriInterface::class);
+        $uri
+            ->expects($this->once())
+            ->method('getScheme')
+            ->willReturn('https');
+
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('getUri')
+            ->willReturn($uri);
+
+        /**
+         * @var RequestInterface $request
+         */
+        $scheme = new SchemeRoute('https');
+        $match = $scheme->match($request, 5);
+
+        $this->assertIsObject($match);
+        $this->assertSame(5, $match->getPathOffset());
+        $this->assertSame([], $match->getParameters());
     }
 
     /**

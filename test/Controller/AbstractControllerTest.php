@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router\Controller;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
 use ExtendsFramework\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -46,15 +45,13 @@ class AbstractControllerTest extends TestCase
         $response = $controller->execute($request, $match);
 
         $this->assertIsObject($response);
-        if ($response instanceof ResponseInterface) {
-            $this->assertSame([
-                'request' => $request,
-                'routeMatch' => $match,
-                'someId' => 33,
-                'allowsNull' => null,
-                'defaultValue' => 'string',
-            ], $response->getBody());
-        }
+        $this->assertSame([
+            'request' => $request,
+            'routeMatch' => $match,
+            'someId' => 33,
+            'allowsNull' => null,
+            'defaultValue' => 'string',
+        ], $response->getBody());
     }
 
     /**

@@ -7,7 +7,6 @@ use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing;
 use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use ExtendsFramework\Validator\ValidatorInterface;
@@ -65,14 +64,50 @@ class PathRouteTest extends TestCase
         ]);
         $match = $path->match($request, 4);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $match);
-        if ($match instanceof RouteMatchInterface) {
-            $this->assertSame(13, $match->getPathOffset());
-            $this->assertSame([
-                'foo' => 'bar',
-                'first_name' => 'John',
-            ], $match->getParameters());
-        }
+        $this->assertIsObject($match);
+        $this->assertSame(13, $match->getPathOffset());
+        $this->assertSame([
+            'foo' => 'bar',
+            'first_name' => 'John',
+        ], $match->getParameters());
+    }
+
+    /**
+     * Match without parameters and validators.
+     *
+     * Test that path '/foo/:first_name/bar' will match '/:first_name/bar' and return an instance of
+     * RouteMatchInterface.
+     *
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getValidators()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getMatchedParameters()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
+     */
+    public function testMatchWithoutParametersAndValidators(): void
+    {
+        $uri = $this->createMock(UriInterface::class);
+        $uri
+            ->expects($this->once())
+            ->method('getPath')
+            ->willReturn('/foo/bar');
+
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('getUri')
+            ->willReturn($uri);
+
+        /**
+         * @var RequestInterface $request
+         */
+        $path = new PathRoute('/bar');
+        $match = $path->match($request, 4);
+
+        $this->assertIsObject($match);
+        $this->assertSame(8, $match->getPathOffset());
+        $this->assertSame([], $match->getParameters());
     }
 
     /**
@@ -84,6 +119,7 @@ class PathRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getValidators()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      */
     public function testNotMatch(): void
     {

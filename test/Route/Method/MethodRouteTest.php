@@ -6,7 +6,6 @@ namespace ExtendsFramework\Router\Route\Method;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\RouteInterface;
-use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -39,13 +38,11 @@ class MethodRouteTest extends TestCase
         ]);
         $match = $method->match($request, 5);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $match);
-        if ($match instanceof RouteMatchInterface) {
-            $this->assertSame(5, $match->getPathOffset());
-            $this->assertSame([
-                'foo' => 'bar',
-            ], $match->getParameters());
-        }
+        $this->assertIsObject($match);
+        $this->assertSame(5, $match->getPathOffset());
+        $this->assertSame([
+            'foo' => 'bar',
+        ], $match->getParameters());
     }
 
     /**
@@ -73,11 +70,9 @@ class MethodRouteTest extends TestCase
         $method = new MethodRoute('POST');
         $match = $method->match($request, 5);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $match);
-        if ($match instanceof RouteMatchInterface) {
-            $this->assertSame(5, $match->getPathOffset());
-            $this->assertEmpty($match->getParameters());
-        }
+        $this->assertIsObject($match);
+        $this->assertSame(5, $match->getPathOffset());
+        $this->assertEmpty($match->getParameters());
     }
 
     /**
