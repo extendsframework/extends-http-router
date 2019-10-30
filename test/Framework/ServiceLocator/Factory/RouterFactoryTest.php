@@ -53,7 +53,6 @@ class RouterFactoryTest extends TestCase
                 ],
             ]);
 
-
         $route1 = $this->createMock(RouteInterface::class);
 
         $route2 = $this->createMock(RouteInterface::class);

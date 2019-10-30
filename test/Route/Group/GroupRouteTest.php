@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router\Route\Group;
 
 use ExtendsFramework\Http\Request\RequestInterface;
+use ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
@@ -252,16 +253,17 @@ class GroupRouteTest extends TestCase
      *
      * Test that abstract group route can not be assembled and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
-     * @covers                   \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
-     * @covers                   \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute::__construct()
-     * @expectedException        \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute
-     * @expectedExceptionMessage Can not assemble a abstract route.
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::getInnerRoute()
+     * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::isAbstract()
+     * @covers \ExtendsFramework\Router\Route\Group\Exception\AssembleAbstractGroupRoute::__construct()
      */
     public function testAssembleAbstractRoute(): void
     {
+        $this->expectException(AssembleAbstractGroupRoute::class);
+        $this->expectExceptionMessage('Can not assemble a abstract route.');
+
         $request = $this->createMock(RequestInterface::class);
 
         $route = $this->createMock(RouteInterface::class);

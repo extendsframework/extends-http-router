@@ -5,6 +5,7 @@ namespace ExtendsFramework\Router;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
+use ExtendsFramework\Router\Exception\InvalidRoutePath;
 use ExtendsFramework\Router\Exception\NotFound;
 use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\RouteInterface;
@@ -108,15 +109,16 @@ class RouterTest extends TestCase
      *
      * Test that a partial URI path can not be matched.
      *
-     * @covers                   \ExtendsFramework\Router\Router::route()
-     * @covers                   \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers                   \ExtendsFramework\Router\Routes::getRoutes()
-     * @covers                   \ExtendsFramework\Router\Exception\NotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\NotFound
-     * @expectedExceptionMessage Request could not be matched by a route.
+     * @covers \ExtendsFramework\Router\Router::route()
+     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Router\Exception\NotFound::__construct()
      */
     public function testPathOffsetMismatch(): void
     {
+        $this->expectException(NotFound::class);
+        $this->expectExceptionMessage('Request could not be matched by a route.');
+
         $uri = $this->createMock(UriInterface::class);
         $uri
             ->expects($this->once())
@@ -159,15 +161,16 @@ class RouterTest extends TestCase
      *
      * Test that more then the allowed query string parameters will return in an exception.
      *
-     * @covers                   \ExtendsFramework\Router\Router::route()
-     * @covers                   \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers                   \ExtendsFramework\Router\Routes::getRoutes()
-     * @covers                   \ExtendsFramework\Router\Exception\NotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\NotFound
-     * @expectedExceptionMessage Request could not be matched by a route.
+     * @covers \ExtendsFramework\Router\Router::route()
+     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
+     * @covers \ExtendsFramework\Router\Routes::getRoutes()
+     * @covers \ExtendsFramework\Router\Exception\NotFound::__construct()
      */
     public function testTooMuchQueryParameters(): void
     {
+        $this->expectException(NotFound::class);
+        $this->expectExceptionMessage('Request could not be matched by a route.');
+
         $uri = $this->createMock(UriInterface::class);
         $uri
             ->expects($this->once())
@@ -248,7 +251,7 @@ class RouterTest extends TestCase
             ->addRoute($route, 'foo')
             ->assemble('foo/bar/baz', ['foo' => 'bar']);
 
-        $this->assertInstanceOf(RequestInterface::class, $request);
+        $this->assertIsObject($request);
     }
 
     /**
@@ -256,13 +259,14 @@ class RouterTest extends TestCase
      *
      * Test that exception will be thrown when route path is invalid.
      *
-     * @covers                   \ExtendsFramework\Router\Router::assemble()
-     * @covers                   \ExtendsFramework\Router\Exception\InvalidRoutePath::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\InvalidRoutePath
-     * @expectedExceptionMessage Invalid router assemble path, got "/foo/".
+     * @covers \ExtendsFramework\Router\Router::assemble()
+     * @covers \ExtendsFramework\Router\Exception\InvalidRoutePath::__construct()
      */
     public function testInvalidRoutePath(): void
     {
+        $this->expectException(InvalidRoutePath::class);
+        $this->expectExceptionMessage('Invalid router assemble path, got "/foo/".');
+
         $router = new Router();
         $router->assemble('/foo/');
     }

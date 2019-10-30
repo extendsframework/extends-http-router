@@ -9,7 +9,6 @@ use ExtendsFramework\Router\Exception\RouteNotFound;
 use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Method\MethodRoute;
-use ExtendsFramework\Router\Route\RouteException;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
@@ -244,14 +243,15 @@ class RoutesTest extends TestCase
      *
      * Test that route can not be found and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Routes::getRoute()
-     * @covers                   \ExtendsFramework\Router\Exception\RouteNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Exception\RouteNotFound
-     * @expectedExceptionMessage Route for name "foo" can not be found.
+     * @covers \ExtendsFramework\Router\Routes::getRoute()
+     * @covers \ExtendsFramework\Router\Exception\RouteNotFound::__construct()
      *
      */
     public function testRouteNotFound(): void
     {
+        $this->expectException(RouteNotFound::class);
+        $this->expectExceptionMessage('Route for name "foo" can not be found.');
+
         $router = new RoutesStub();
         $router->route('foo');
     }
@@ -261,13 +261,16 @@ class RoutesTest extends TestCase
      *
      * Test that and exception will be thrown when group route is expected but not returned.
      *
-     * @covers                          \ExtendsFramework\Router\Routes::getRoute()
-     * @covers                          \ExtendsFramework\Router\Exception\GroupRouteExpected::__construct()
-     * @expectedException               \ExtendsFramework\Router\Exception\GroupRouteExpected
-     * @expectedExceptionMessageRegExp  /^A group route was expected, but an instance of "([^"]+)" was returned.$/
+     * @covers \ExtendsFramework\Router\Routes::getRoute()
+     * @covers \ExtendsFramework\Router\Exception\GroupRouteExpected::__construct()
      */
     public function testGroupRouteExpected(): void
     {
+        $this->expectException(GroupRouteExpected::class);
+        $this->expectExceptionMessageMatches(
+            '/^A group route was expected, but an instance of "([^"]+)" was returned.$/'
+        );
+
         $route = $this->createMock(RouteInterface::class);
 
         /**
@@ -277,32 +280,5 @@ class RoutesTest extends TestCase
         $router
             ->addRoute($route, 'foo')
             ->route('foo', true);
-    }
-}
-
-class RoutesStub
-{
-    use Routes;
-
-    /**
-     * @param RequestInterface $request
-     * @return RouteMatchInterface|null
-     * @throws RouteException
-     */
-    public function match(RequestInterface $request): ?RouteMatchInterface
-    {
-        return $this->matchRoutes($request, 0);
-    }
-
-    /**
-     * @param string    $name
-     * @param bool|null $groupRoute
-     * @return RouteInterface
-     * @throws GroupRouteExpected
-     * @throws RouteNotFound
-     */
-    public function route(string $name, bool $groupRoute = null): RouteInterface
-    {
-        return $this->getRoute($name, $groupRoute);
     }
 }

@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router\Controller;
 
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Response\Response;
 use ExtendsFramework\Http\Response\ResponseInterface;
+use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
+use ExtendsFramework\Router\Controller\Exception\ParameterNotFound;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -44,7 +45,7 @@ class AbstractControllerTest extends TestCase
         $controller = new ControllerStub();
         $response = $controller->execute($request, $match);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         if ($response instanceof ResponseInterface) {
             $this->assertSame([
                 'request' => $request,
@@ -61,16 +62,17 @@ class AbstractControllerTest extends TestCase
      *
      * Test that action attribute can not be found in $request and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::execute()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getAction()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getMethod()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
-     * @covers                   \ExtendsFramework\Router\Controller\Exception\ActionNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Controller\Exception\ActionNotFound
-     * @expectedExceptionMessage No controller action was found in request.
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
+     * @covers \ExtendsFramework\Router\Controller\Exception\ActionNotFound::__construct()
      */
     public function testActionNotFound(): void
     {
+        $this->expectException(ActionNotFound::class);
+        $this->expectExceptionMessage('No controller action was found in request.');
+
         $request = $this->createMock(RequestInterface::class);
 
         $match = $this->createMock(RouteMatchInterface::class);
@@ -91,17 +93,20 @@ class AbstractControllerTest extends TestCase
      *
      * Test that parameter value can not be determined and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::execute()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getAction()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getMethod()
-     * @covers                   \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
-     * @covers                   \ExtendsFramework\Router\Controller\Exception\ParameterNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Controller\Exception\ParameterNotFound
-     * @expectedExceptionMessage Parameter name "someId" can not be found in route match parameters and has no default
-     *                           value or allows null.
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
+     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
+     * @covers \ExtendsFramework\Router\Controller\Exception\ParameterNotFound::__construct()
      */
     public function testParameterNotFound(): void
     {
+        $this->expectException(ParameterNotFound::class);
+        $this->expectExceptionMessage(
+            'Parameter name "someId" can not be found in route match ' .
+            'parameters and has no default value or allows null.'
+        );
+
         $request = $this->createMock(RequestInterface::class);
 
         $match = $this->createMock(RouteMatchInterface::class);
@@ -117,26 +122,5 @@ class AbstractControllerTest extends TestCase
          */
         $controller = new ControllerStub();
         $controller->execute($request, $match);
-    }
-}
-
-class ControllerStub extends AbstractController
-{
-    /**
-     * @param int       $someId
-     * @param bool|null $allowsNull
-     * @param string    $defaultValue
-     * @return ResponseInterface
-     */
-    public function fooFancyActionAction(int $someId, ?bool $allowsNull, string $defaultValue = 'string'): ResponseInterface
-    {
-        return (new Response())
-            ->withBody([
-                'request' => $this->getRequest(),
-                'routeMatch' => $this->getRouteMatch(),
-                'someId' => $someId,
-                'allowsNull' => $allowsNull,
-                'defaultValue' => $defaultValue,
-            ]);
     }
 }

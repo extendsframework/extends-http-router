@@ -227,15 +227,17 @@ class QueryRouteTest extends TestCase
      *
      * Test that exception will be thrown when required query parameter is missing.
      *
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
-     * @expectedException \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testQueryParameterMissing(): void
     {
+        $this->expectException(QueryParameterMissing::class);
+        $this->expectExceptionMessage('Query string parameter "phrase" value is required.');
+
         $validator = $this->createMock(ValidatorInterface::class);
 
         $request = $this->createMock(RequestInterface::class);
@@ -254,15 +256,17 @@ class QueryRouteTest extends TestCase
      *
      * Test that exception will be thrown when query string parameter is invalid.
      *
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers            \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
-     * @expectedException \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
+     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testInvalidQueryString(): void
     {
+        $this->expectException(InvalidQueryString::class);
+        $this->expectExceptionMessage('Query string parameter "phrase" failed to validate.');
+
         $result = $this->createMock(ResultInterface::class);
         $result
             ->expects($this->once())

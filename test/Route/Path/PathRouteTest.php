@@ -5,6 +5,7 @@ namespace ExtendsFramework\Router\Route\Path;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
+use ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
@@ -164,16 +165,17 @@ class PathRouteTest extends TestCase
      *
      * Test that exception will be thrown when parameter is missing.
      *
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::getPath()
-     * @covers                   \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
-     * @covers                   \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing::__construct()
-     * @expectedException        \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing
-     * @expectedExceptionMessage Failed to assemble route, path parameter "id" is missing.
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPath()
+     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
+     * @covers \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing::__construct()
      */
     public function testParameterMissing(): void
     {
+        $this->expectException(PathParameterMissing::class);
+        $this->expectExceptionMessage('Failed to assemble route, path parameter "id" is missing.');
+
         $uri = $this->createMock(UriInterface::class);
         $uri
             ->expects($this->once())

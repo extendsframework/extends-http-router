@@ -102,7 +102,7 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         $this->assertSame(404, $response->getStatusCode());
         $this->assertSame([
             'type' => '',
@@ -141,7 +141,7 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         $this->assertSame(405, $response->getStatusCode());
         $this->assertSame([
             'type' => '',
@@ -197,7 +197,7 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         $this->assertSame(400, $response->getStatusCode());
         $this->assertSame([
             'type' => '',
@@ -243,7 +243,7 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         $this->assertSame(400, $response->getStatusCode());
         $this->assertSame([
             'type' => '',

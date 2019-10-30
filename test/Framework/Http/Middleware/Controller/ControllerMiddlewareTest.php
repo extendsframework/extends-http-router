@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Router\Framework\Http\Middleware\Controller;
 
-use ExtendsFramework\Router\Controller\ControllerInterface;
-use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
+use ExtendsFramework\Router\Controller\ControllerInterface;
+use ExtendsFramework\Router\Controller\Exception\ActionNotFound;
+use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed;
+use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
@@ -74,14 +76,15 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that when route match parameter 'controller' is not set the exception ControllerNotFound is thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound::__construct()
-     * @expectedException        \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound
-     * @expectedExceptionMessage Controller for key "foo" can not be retrieved from service locator.
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound::__construct()
      */
     public function testControllerNotFound(): void
     {
+        $this->expectException(ControllerNotFound::class);
+        $this->expectExceptionMessage('Controller for key "foo" can not be retrieved from service locator.');
+
         $chain = $this->createMock(MiddlewareChainInterface::class);
 
         $match = $this->createMock(RouteMatchInterface::class);
@@ -125,14 +128,17 @@ class ControllerMiddlewareTest extends TestCase
      *
      * Test that a ControllerException can be caught and the exception ControllerExecutionFailed will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers                   \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed::__construct()
-     * @expectedException        \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed
-     * @expectedExceptionMessage Failed to execute request to controller. See previous exception for more details.
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed::__construct()
      */
     public function testControllerExecuteFailed(): void
     {
+        $this->expectException(ControllerExecutionFailed::class);
+        $this->expectExceptionMessage(
+            'Failed to execute request to controller. See previous exception for more details.'
+        );
+
         $chain = $this->createMock(MiddlewareChainInterface::class);
 
         $match = $this->createMock(RouteMatchInterface::class);

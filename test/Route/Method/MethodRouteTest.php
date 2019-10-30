@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
+use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
@@ -84,17 +85,18 @@ class MethodRouteTest extends TestCase
      *
      * Test that method GET is not allowed and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
-     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
-     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::match()
-     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
-     * @covers                   \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
-     * @covers                   \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed::__construct()
-     * @expectedException        \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed
-     * @expectedExceptionMessage Method "GET" is not allowed.
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
+     * @covers \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed::__construct()
      */
     public function testMethodNotAllowed(): void
     {
+        $this->expectException(MethodNotAllowed::class);
+        $this->expectExceptionMessage('Method "GET" is not allowed.');
+
         $request = $this->createMock(RequestInterface::class);
         $request
             ->expects($this->once())
