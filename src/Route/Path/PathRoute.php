@@ -18,14 +18,14 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Validators for matching the URI variables.
      *
-     * @var ValidatorInterface[]
+     * @var ValidatorInterface[]|null
      */
     private $validators;
 
     /**
      * Default parameters to return when route is matched.
      *
-     * @var array
+     * @var array|null
      */
     private $parameters;
 
@@ -55,8 +55,8 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(string $path, array $validators = null, array $parameters = null)
     {
         $this->path = $path;
-        $this->validators = $validators ?? [];
-        $this->parameters = $parameters ?? [];
+        $this->validators = $validators;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -168,6 +168,10 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     private function getParameters(): array
     {
+        if ($this->parameters === null) {
+            $this->parameters = [];
+        }
+
         return $this->parameters;
     }
 
@@ -178,6 +182,10 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      */
     private function getValidators(): array
     {
+        if ($this->validators === null) {
+            $this->validators = [];
+        }
+
         return $this->validators;
     }
 
