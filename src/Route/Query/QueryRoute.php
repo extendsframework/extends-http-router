@@ -85,7 +85,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
                 throw new InvalidQueryString($parameter, $result);
             }
 
-            if (($this->parameters[$parameter] ?? null) !== ($parameters[$parameter] ?? null)) {
+            if (($this->getParameters()[$parameter] ?? null) !== ($parameters[$parameter] ?? null)) {
                 $query[$parameter] = $parameters[$parameter];
             }
         }
