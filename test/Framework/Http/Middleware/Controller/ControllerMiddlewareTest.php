@@ -24,7 +24,6 @@ class ControllerMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware::getController()
      */
     public function testProcess(): void
     {

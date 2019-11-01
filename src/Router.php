@@ -27,13 +27,11 @@ class Router implements RouterInterface
     {
         $match = $this->matchRoutes($request, 0);
         $uri = $request->getUri();
-        if ($match instanceof RouteMatchInterface && $match->getPathOffset() === strlen($uri->getPath())) {
-            $parameters = $match->getParameters();
-            $query = $uri->getQuery();
-
-            if (empty(array_diff_key($query, $parameters))) {
-                return $match;
-            }
+        if ($match instanceof RouteMatchInterface &&
+            $match->getPathOffset() === strlen($uri->getPath()) &&
+            empty(array_diff_key($uri->getQuery(), $match->getParameters()))
+        ) {
+            return $match;
         }
 
         throw new NotFound($request);
@@ -44,7 +42,7 @@ class Router implements RouterInterface
      */
     public function assemble(string $path, array $parameters = null): RequestInterface
     {
-        if (preg_match($this->getPattern(), $path) === 0) {
+        if (preg_match($this->pattern, $path) === 0) {
             throw new InvalidRoutePath($path);
         }
 
@@ -52,15 +50,5 @@ class Router implements RouterInterface
         $route = $this->getRoute(array_shift($routes), !empty($routes));
 
         return $route->assemble(new Request(), $routes, $parameters ?? []);
-    }
-
-    /**
-     * Get pattern.
-     *
-     * @return string
-     */
-    private function getPattern(): string
-    {
-        return $this->pattern;
     }
 }

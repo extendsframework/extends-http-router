@@ -44,12 +44,13 @@ class ControllerMiddleware implements MiddlewareInterface
             $parameters = $match->getParameters();
             if (array_key_exists('controller', $parameters)) {
                 try {
-                    $controller = $this->getController($parameters['controller']);
+                    $controller = $this->serviceLocator->getService($parameters['controller']);
                 } catch (ServiceLocatorException $exception) {
                     throw new ControllerNotFound($parameters['controller'], $exception);
                 }
 
                 try {
+                    /** @var ControllerInterface $controller */
                     return $controller->execute($request, $match);
                 } catch (ControllerException $exception) {
                     throw new ControllerExecutionFailed($exception);
@@ -58,17 +59,5 @@ class ControllerMiddleware implements MiddlewareInterface
         }
 
         return $chain->proceed($request);
-    }
-
-    /**
-     * Get controller for $key from the service locator.
-     *
-     * @param string $key
-     * @return ControllerInterface
-     * @throws ServiceLocatorException
-     */
-    private function getController(string $key): object
-    {
-        return $this->serviceLocator->getService($key);
     }
 }

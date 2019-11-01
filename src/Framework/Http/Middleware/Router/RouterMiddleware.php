@@ -42,17 +42,45 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         try {
-            $match = $this
-                ->getRouter()
-                ->route($request);
+            $match = $this->router->route($request);
         } catch (MethodNotAllowed $exception) {
-            return $this->getMethodNotAllowedResponse($exception);
+            return (new Response())
+                ->withStatusCode(405)
+                ->withHeader('Allow', implode(', ', $exception->getAllowedMethods()))
+                ->withBody([
+                    'type' => '',
+                    'title' => 'Method not allowed.',
+                    'method' => $exception->getMethod(),
+                    'allowed_methods' => $exception->getAllowedMethods(),
+                ]);
         } catch (NotFound $exception) {
-            return $this->getNotFoundResponse($exception);
+            return (new Response())
+                ->withStatusCode(404)
+                ->withBody([
+                    'type' => '',
+                    'title' => 'Not found.',
+                    'path' => $exception
+                        ->getRequest()
+                        ->getUri()
+                        ->toRelative(),
+                ]);
         } catch (InvalidQueryString $exception) {
-            return $this->getInvalidQueryStringResponse($exception);
+            return (new Response())
+                ->withStatusCode(400)
+                ->withBody([
+                    'type' => '',
+                    'title' => 'Invalid query string.',
+                    'parameter' => $exception->getParameter(),
+                    'reason' => $exception->getResult(),
+                ]);
         } catch (QueryParameterMissing $exception) {
-            return $this->getQueryParameterMissingResponse($exception);
+            return (new Response())
+                ->withStatusCode(400)
+                ->withBody([
+                    'type' => '',
+                    'title' => 'Query parameter missing.',
+                    'parameter' => $exception->getParameter(),
+                ]);
         }
 
         if ($match instanceof RouteMatchInterface) {
@@ -60,89 +88,5 @@ class RouterMiddleware implements MiddlewareInterface
         }
 
         return $chain->proceed($request);
-    }
-
-    /**
-     * Get router.
-     *
-     * @return RouterInterface
-     */
-    private function getRouter(): RouterInterface
-    {
-        return $this->router;
-    }
-
-    /**
-     * Get response for MethodNotAllowed exception.
-     *
-     * @param MethodNotAllowed $exception
-     * @return ResponseInterface
-     */
-    private function getMethodNotAllowedResponse(MethodNotAllowed $exception): ResponseInterface
-    {
-        return (new Response())
-            ->withStatusCode(405)
-            ->withHeader('Allow', implode(', ', $exception->getAllowedMethods()))
-            ->withBody([
-                'type' => '',
-                'title' => 'Method not allowed.',
-                'method' => $exception->getMethod(),
-                'allowed_methods' => $exception->getAllowedMethods(),
-            ]);
-    }
-
-    /**
-     * Get response for NotFound exception.
-     *
-     * @param NotFound $exception
-     * @return ResponseInterface
-     */
-    private function getNotFoundResponse(NotFound $exception): ResponseInterface
-    {
-        return (new Response())
-            ->withStatusCode(404)
-            ->withBody([
-                'type' => '',
-                'title' => 'Not found.',
-                'path' => $exception
-                    ->getRequest()
-                    ->getUri()
-                    ->toRelative(),
-            ]);
-    }
-
-    /**
-     * Get response for InvalidQueryString exception.
-     *
-     * @param InvalidQueryString $exception
-     * @return ResponseInterface
-     */
-    private function getInvalidQueryStringResponse(InvalidQueryString $exception): ResponseInterface
-    {
-        return (new Response())
-            ->withStatusCode(400)
-            ->withBody([
-                'type' => '',
-                'title' => 'Invalid query string.',
-                'parameter' => $exception->getParameter(),
-                'reason' => $exception->getResult(),
-            ]);
-    }
-
-    /**
-     * Get response for QueryParameterMissing exception.
-     *
-     * @param QueryParameterMissing $exception
-     * @return ResponseInterface
-     */
-    private function getQueryParameterMissingResponse(QueryParameterMissing $exception): ResponseInterface
-    {
-        return (new Response())
-            ->withStatusCode(400)
-            ->withBody([
-                'type' => '',
-                'title' => 'Query parameter missing.',
-                'parameter' => $exception->getParameter(),
-            ]);
     }
 }

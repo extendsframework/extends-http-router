@@ -73,7 +73,6 @@ class RouterFactory implements ServiceFactoryInterface
         array $children,
         bool $abstract = null
     ): RouteInterface {
-        /** @var GroupRoute $group */
         $group = $serviceLocator->getService(GroupRoute::class, [
             'route' => $route,
             'abstract' => $abstract,
@@ -86,6 +85,7 @@ class RouterFactory implements ServiceFactoryInterface
             );
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $group;
     }
 }

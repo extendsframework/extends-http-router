@@ -22,10 +22,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getMatchedParameters()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -80,10 +76,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getMatchedParameters()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      */
     public function testMatchWithoutParametersAndValidators(): void
     {
@@ -117,9 +109,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      */
     public function testNotMatch(): void
     {
@@ -158,8 +147,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPath()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      */
     public function testAssemble(): void
     {
@@ -203,8 +190,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPath()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getParameters()
      * @covers \ExtendsFramework\Router\Route\Path\Exception\PathParameterMissing::__construct()
      */
     public function testParameterMissing(): void
@@ -212,17 +197,7 @@ class PathRouteTest extends TestCase
         $this->expectException(PathParameterMissing::class);
         $this->expectExceptionMessage('Failed to assemble route, path parameter "id" is missing.');
 
-        $uri = $this->createMock(UriInterface::class);
-        $uri
-            ->expects($this->once())
-            ->method('getPath')
-            ->willReturn('/foo');
-
         $request = $this->createMock(RequestInterface::class);
-        $request
-            ->expects($this->once())
-            ->method('getUri')
-            ->willReturn($uri);
 
         /**
          * @var RequestInterface $request
@@ -238,7 +213,6 @@ class PathRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Path\PathRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Path\PathRoute::getPattern()
      */
     public function testInvalidValidator(): void
     {

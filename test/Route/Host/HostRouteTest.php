@@ -18,8 +18,6 @@ class HostRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getHost()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -57,8 +55,6 @@ class HostRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getHost()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getParameters()
      */
     public function testMatchWithoutParameters(): void
     {
@@ -92,8 +88,6 @@ class HostRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getHost()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getParameters()
      */
     public function testNoMatch(): void
     {
@@ -125,7 +119,6 @@ class HostRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Host\HostRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Host\HostRoute::getHost()
      */
     public function testAssemble(): void
     {

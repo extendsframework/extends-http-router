@@ -43,59 +43,16 @@ abstract class AbstractController implements ControllerInterface
         $this->request = $request;
         $this->routeMatch = $routeMatch;
 
-        $method = $this->getMethod($routeMatch);
-        $arguments = $this->getArguments($method, $routeMatch);
-
-        return $method->invokeArgs($this, $arguments);
-    }
-
-    /**
-     * Get callable method for $action.
-     *
-     * The object property $postfix will be append to $action.
-     *
-     * @param RouteMatchInterface $routeMatch
-     * @return ReflectionMethod
-     * @throws ControllerException
-     * @throws ReflectionException
-     */
-    private function getMethod(RouteMatchInterface $routeMatch): ReflectionMethod
-    {
-        $action = $this->getAction($routeMatch);
-
-        return new ReflectionMethod($this, $action . $this->getPostfix());
-    }
-
-    /**
-     * Normalize action string.
-     *
-     * @param RouteMatchInterface $routeMatch
-     * @return string
-     * @throws ControllerException
-     */
-    private function getAction(RouteMatchInterface $routeMatch): string
-    {
         $parameters = $routeMatch->getParameters();
         if (!array_key_exists('action', $parameters)) {
             throw new ActionNotFound();
         }
 
-        return $this->normalizeAction($parameters['action']);
-    }
+        $action = str_replace(['_', '-', '.',], ' ', strtolower($parameters['action']));
+        $action = lcfirst(str_replace(' ', '', ucwords($action)));
+        $method = new ReflectionMethod($this, $action . $this->postfix);
 
-    /**
-     * Get $method argument values from $routeMatch.
-     *
-     * @param ReflectionMethod    $method
-     * @param RouteMatchInterface $routeMatch
-     * @return array
-     * @throws ParameterNotFound
-     * @throws ReflectionException
-     */
-    private function getArguments(ReflectionMethod $method, RouteMatchInterface $routeMatch): array
-    {
         $parameters = $routeMatch->getParameters();
-
         $arguments = [];
         foreach ($method->getParameters() as $parameter) {
             $name = $parameter->getName();
@@ -113,18 +70,7 @@ abstract class AbstractController implements ControllerInterface
             }
         }
 
-        return $arguments;
-    }
-
-    /**
-     * Normalize action string.
-     *
-     * @param string $action
-     * @return string
-     */
-    private function normalizeAction(string $action): string
-    {
-        return lcfirst(str_replace(' ', '', ucwords(str_replace(['_', '-', '.'], ' ', strtolower($action)))));
+        return $method->invokeArgs($this, $arguments);
     }
 
     /**
@@ -145,15 +91,5 @@ abstract class AbstractController implements ControllerInterface
     protected function getRouteMatch(): RouteMatchInterface
     {
         return $this->routeMatch;
-    }
-
-    /**
-     * Get Postfix.
-     *
-     * @return string
-     */
-    private function getPostfix(): string
-    {
-        return $this->postfix;
     }
 }

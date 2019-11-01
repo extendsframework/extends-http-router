@@ -53,7 +53,7 @@ class RouteMatch implements RouteMatchInterface
     public function merge(RouteMatchInterface $routeMatch): RouteMatchInterface
     {
         $merged = clone $this;
-        $merged->parameters = array_replace_recursive($this->getParameters(), $routeMatch->getParameters());
+        $merged->parameters = array_replace_recursive($this->parameters, $routeMatch->getParameters());
         $merged->pathOffset = $routeMatch->getPathOffset();
 
         return $merged;

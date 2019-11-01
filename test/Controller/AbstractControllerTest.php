@@ -17,11 +17,6 @@ class AbstractControllerTest extends TestCase
      * Test that $request can be executed to $controller and $response will be returned.
      *
      * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::normalizeAction()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getArguments()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::getRequest()
      * @covers \ExtendsFramework\Router\Controller\AbstractController::getRouteMatch()
      */
@@ -60,9 +55,6 @@ class AbstractControllerTest extends TestCase
      * Test that action attribute can not be found in $request and an exception will be thrown.
      *
      * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
      * @covers \ExtendsFramework\Router\Controller\Exception\ActionNotFound::__construct()
      */
     public function testActionNotFound(): void
@@ -91,9 +83,6 @@ class AbstractControllerTest extends TestCase
      * Test that parameter value can not be determined and an exception will be thrown.
      *
      * @covers \ExtendsFramework\Router\Controller\AbstractController::execute()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getAction()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getMethod()
-     * @covers \ExtendsFramework\Router\Controller\AbstractController::getPostfix()
      * @covers \ExtendsFramework\Router\Controller\Exception\ParameterNotFound::__construct()
      */
     public function testParameterNotFound(): void

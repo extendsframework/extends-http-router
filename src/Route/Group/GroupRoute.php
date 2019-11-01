@@ -18,7 +18,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     /**
      * If this can be matched.
      *
-     * @var bool|null
+     * @var bool
      */
     private $abstract;
 
@@ -38,52 +38,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(RouteInterface $route, bool $abstract = null)
     {
         $this->innerRoute = $route;
-        $this->abstract = $abstract;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
-    {
-        $outer = $this
-            ->getInnerRoute()
-            ->match($request, $pathOffset);
-        if (! $outer instanceof RouteMatchInterface) {
-            return null;
-        }
-
-        $inner = $this->matchRoutes($request, $outer->getPathOffset());
-        if ($inner instanceof RouteMatchInterface) {
-            return $outer->merge($inner);
-        }
-
-        if (!$this->isAbstract()) {
-            return $outer;
-        }
-
-        return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
-    {
-        $request = $this
-            ->getInnerRoute()
-            ->assemble($request, $path, $parameters);
-        if (empty($path)) {
-            if ($this->isAbstract()) {
-                throw new AssembleAbstractGroupRoute();
-            }
-
-            return $request;
-        }
-
-        return $this
-            ->getRoute(array_shift($path), !empty($path))
-            ->assemble($request, $path, $parameters);
+        $this->abstract = $abstract ?? true;
     }
 
     /**
@@ -95,26 +50,43 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     }
 
     /**
-     * Get abstract.
-     *
-     * @return bool
+     * @inheritDoc
      */
-    private function isAbstract(): bool
+    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if ($this->abstract === null) {
-            $this->abstract = true;
+        $outer = $this->innerRoute->match($request, $pathOffset);
+        if (!$outer instanceof RouteMatchInterface) {
+            return null;
         }
 
-        return $this->abstract;
+        $inner = $this->matchRoutes($request, $outer->getPathOffset());
+        if ($inner instanceof RouteMatchInterface) {
+            return $outer->merge($inner);
+        }
+
+        if (!$this->abstract) {
+            return $outer;
+        }
+
+        return null;
     }
 
     /**
-     * Get inner route.
-     *
-     * @return RouteInterface
+     * @inheritDoc
      */
-    private function getInnerRoute(): RouteInterface
+    public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        return $this->innerRoute;
+        $request = $this->innerRoute->assemble($request, $path, $parameters);
+        if (empty($path)) {
+            if ($this->abstract) {
+                throw new AssembleAbstractGroupRoute();
+            }
+
+            return $request;
+        }
+
+        return $this
+            ->getRoute(array_shift($path), !empty($path))
+            ->assemble($request, $path, $parameters);
     }
 }

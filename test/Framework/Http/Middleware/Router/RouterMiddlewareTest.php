@@ -25,7 +25,6 @@ class RouterMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getRouter
      */
     public function testMatch(): void
     {
@@ -71,8 +70,6 @@ class RouterMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getRouter
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getNotFoundResponse()
      * @covers \ExtendsFramework\Router\Exception\NotFound::getRequest()
      */
     public function testNotFound(): void
@@ -120,8 +117,6 @@ class RouterMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getRouter
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getMethodNotAllowedResponse()
      */
     public function testMethodNotAllowed(): void
     {
@@ -164,8 +159,6 @@ class RouterMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getRouter
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getInvalidQueryStringResponse()
      */
     public function testInvalidQueryString(): void
     {
@@ -218,8 +211,6 @@ class RouterMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getRouter
-     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::getQueryParameterMissingResponse()
      */
     public function testQueryParameterMissing(): void
     {

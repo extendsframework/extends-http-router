@@ -22,7 +22,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Default parameters to return.
      *
-     * @var array|null
+     * @var array
      */
     private $parameters;
 
@@ -35,7 +35,15 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(string $host, array $parameters = null)
     {
         $this->host = $host;
-        $this->parameters = $parameters;
+        $this->parameters = $parameters ?? [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    {
+        return new static($extra['host'], $extra['parameters'] ?? []);
     }
 
     /**
@@ -43,8 +51,10 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        if ($request->getUri()->getHost() === $this->getHost()) {
-            return new RouteMatch($this->getParameters(), $pathOffset);
+        if ($this->host === $request
+                ->getUri()
+                ->getHost()) {
+            return new RouteMatch($this->parameters, $pathOffset);
         }
 
         return null;
@@ -58,39 +68,7 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
         return $request->withUri(
             $request
                 ->getUri()
-                ->withHost($this->getHost())
+                ->withHost($this->host)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
-        return new static($extra['host'], $extra['parameters'] ?? []);
-    }
-
-    /**
-     * Get host.
-     *
-     * @return string
-     */
-    private function getHost(): string
-    {
-        return $this->host;
-    }
-
-    /**
-     * Get parameters.
-     *
-     * @return array
-     */
-    private function getParameters(): array
-    {
-        if ($this->parameters === null) {
-            $this->parameters = [];
-        }
-
-        return $this->parameters;
     }
 }

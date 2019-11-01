@@ -9,9 +9,9 @@ use ExtendsFramework\Router\Exception\GroupRouteExpected;
 use ExtendsFramework\Router\Exception\RouteNotFound;
 use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\RouteException;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
-use ExtendsFramework\Router\Route\RouteException;
 
 trait Routes
 {

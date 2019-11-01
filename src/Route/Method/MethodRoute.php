@@ -36,7 +36,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     /**
      * Default parameters to return.
      *
-     * @var array|null
+     * @var array
      */
     private $parameters;
 
@@ -49,28 +49,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     public function __construct(string $method, array $parameters = null)
     {
         $this->method = $method;
-        $this->parameters = $parameters;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
-    {
-        $method = $request->getMethod();
-        if (strtoupper($method) === $this->getMethod()) {
-            return new RouteMatch($this->getParameters(), $pathOffset);
-        }
-
-        throw new MethodNotAllowed($method, [$this->getMethod()]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
-    {
-        return $request->withMethod($this->getMethod());
+        $this->parameters = $parameters ?? [];
     }
 
     /**
@@ -82,26 +61,23 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     }
 
     /**
-     * Get method.
-     *
-     * @return string
+     * @inheritDoc
      */
-    private function getMethod(): string
+    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        return $this->method;
+        $method = $request->getMethod();
+        if (strtoupper($method) === $this->method) {
+            return new RouteMatch($this->parameters, $pathOffset);
+        }
+
+        throw new MethodNotAllowed($method, [$this->method]);
     }
 
     /**
-     * Get parameters.
-     *
-     * @return array
+     * @inheritDoc
      */
-    private function getParameters(): array
+    public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        if ($this->parameters === null) {
-            $this->parameters = [];
-        }
-
-        return $this->parameters;
+        return $request->withMethod($this->method);
     }
 }

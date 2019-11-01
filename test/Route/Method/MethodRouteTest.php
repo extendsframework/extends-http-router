@@ -19,8 +19,6 @@ class MethodRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      */
     public function testMatch(): void
     {
@@ -53,8 +51,6 @@ class MethodRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      */
     public function testMatchWithoutParameters(): void
     {
@@ -83,8 +79,6 @@ class MethodRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      * @covers \ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed::__construct()
      */
     public function testMethodNotAllowed(): void
@@ -111,8 +105,6 @@ class MethodRouteTest extends TestCase
      * Test that assemble method will return request.
      *
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getMethod()
-     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::getParameters()
      */
     public function testAssemble(): void
     {

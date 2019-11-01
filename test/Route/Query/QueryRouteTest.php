@@ -22,9 +22,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testMatch(): void
     {
@@ -85,9 +82,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getParameter()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString::getResult()
@@ -149,9 +143,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testAssemble(): void
     {
@@ -226,9 +217,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testQueryParameterMissing(): void
     {
@@ -255,9 +243,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::assemble()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      */
     public function testInvalidQueryString(): void
     {
@@ -297,9 +282,6 @@ class QueryRouteTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getValidators()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::getParameters()
-     * @covers \ExtendsFramework\Router\Route\Query\QueryRoute::replaceParameters()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::__construct()
      * @covers \ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing::getParameter()
      */
