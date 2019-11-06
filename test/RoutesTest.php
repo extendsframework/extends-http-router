@@ -191,14 +191,14 @@ class RoutesTest extends TestCase
             ->expects($this->once())
             ->method('match')
             ->with($request, 0)
-            ->willReturn(null);
+            ->willReturn($match);
 
         $route3 = $this->createMock(GroupRoute::class);
         $route3
             ->expects($this->once())
             ->method('match')
             ->with($request, 0)
-            ->willReturn($match);
+            ->willReturn(null);
 
         /**
          * @var RouteInterface   $route1

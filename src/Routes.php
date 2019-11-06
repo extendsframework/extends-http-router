@@ -82,7 +82,10 @@ trait Routes
     private function getRoutes(): array
     {
         uasort($this->routes, static function (RouteInterface $left, RouteInterface $right) {
-            if ($left instanceof GroupRoute || $right instanceof GroupRoute) {
+            if ($left instanceof GroupRoute) {
+                return -1;
+            }
+            if ($right instanceof GroupRoute) {
                 return 1;
             }
 
