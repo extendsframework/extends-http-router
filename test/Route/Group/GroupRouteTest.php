@@ -78,7 +78,6 @@ class GroupRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testNonAbstractRoute(): void
     {
@@ -112,7 +111,6 @@ class GroupRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testAbstractRoute(): void
     {
@@ -146,7 +144,6 @@ class GroupRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Group\GroupRoute::match()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testNoRouteMatch(): void
     {

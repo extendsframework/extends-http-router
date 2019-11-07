@@ -6,7 +6,6 @@ namespace ExtendsFramework\Router;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Exception\GroupRouteExpected;
 use ExtendsFramework\Router\Exception\RouteNotFound;
-use ExtendsFramework\Router\Route\Group\GroupRoute;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Method\MethodRoute;
 use ExtendsFramework\Router\Route\RouteInterface;
@@ -22,7 +21,6 @@ class RoutesTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testMatch(): void
     {
@@ -65,7 +63,6 @@ class RoutesTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testNoMatch(): void
     {
@@ -86,7 +83,6 @@ class RoutesTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testMethodNotAllowed(): void
     {
@@ -130,7 +126,6 @@ class RoutesTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testMethodAllowed(): void
     {
@@ -161,56 +156,6 @@ class RoutesTest extends TestCase
         $matched = $routes
             ->addRoute($route1, 'route1')
             ->addRoute($route2, 'route2')
-            ->match($request);
-
-        $this->assertSame($match, $matched);
-    }
-
-    /**
-     * Route order.
-     *
-     * Test that group route will be matched first.
-     *
-     * @covers \ExtendsFramework\Router\Routes::addRoute()
-     * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
-     */
-    public function testRouteOrder(): void
-    {
-        $match = $this->createMock(RouteMatchInterface::class);
-
-        $request = $this->createMock(RequestInterface::class);
-
-        $route1 = $this->createMock(MethodRoute::class);
-        $route1
-            ->expects($this->never())
-            ->method('match');
-
-        $route2 = $this->createMock(GroupRoute::class);
-        $route2
-            ->expects($this->once())
-            ->method('match')
-            ->with($request, 0)
-            ->willReturn($match);
-
-        $route3 = $this->createMock(GroupRoute::class);
-        $route3
-            ->expects($this->once())
-            ->method('match')
-            ->with($request, 0)
-            ->willReturn(null);
-
-        /**
-         * @var RouteInterface   $route1
-         * @var RouteInterface   $route2
-         * @var RouteInterface   $route3
-         * @var RequestInterface $request
-         */
-        $routes = new RoutesStub();
-        $matched = $routes
-            ->addRoute($route1, 'route1')
-            ->addRoute($route2, 'route2')
-            ->addRoute($route3, 'route3')
             ->match($request);
 
         $this->assertSame($match, $matched);

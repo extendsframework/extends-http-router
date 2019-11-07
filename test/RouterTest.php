@@ -23,7 +23,6 @@ class RouterTest extends TestCase
      * @covers \ExtendsFramework\Router\Router::route()
      * @covers \ExtendsFramework\Router\Routes::addRoute()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      */
     public function testMatch(): void
     {
@@ -85,7 +84,6 @@ class RouterTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Router::route()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      * @covers \ExtendsFramework\Router\Exception\NotFound::getRequest()
      */
     public function testNoMatch(): void
@@ -111,7 +109,6 @@ class RouterTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Router::route()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      * @covers \ExtendsFramework\Router\Exception\NotFound::__construct()
      */
     public function testPathOffsetMismatch(): void
@@ -163,7 +160,6 @@ class RouterTest extends TestCase
      *
      * @covers \ExtendsFramework\Router\Router::route()
      * @covers \ExtendsFramework\Router\Routes::matchRoutes()
-     * @covers \ExtendsFramework\Router\Routes::getRoutes()
      * @covers \ExtendsFramework\Router\Exception\NotFound::__construct()
      */
     public function testTooMuchQueryParameters(): void

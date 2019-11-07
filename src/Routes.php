@@ -49,8 +49,7 @@ trait Routes
     private function matchRoutes(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
         $notAllowed = null;
-        $routes = $this->getRoutes();
-        foreach ($routes as $route) {
+        foreach ($this->routes as $route) {
             try {
                 $match = $route->match($request, $pathOffset);
                 if ($match instanceof RouteMatchInterface) {
@@ -73,29 +72,6 @@ trait Routes
     }
 
     /**
-     * Get routes.
-     *
-     * Sort children that group routes will be matched first, nested routes before flat routes.
-     *
-     * @return RouteInterface[]
-     */
-    private function getRoutes(): array
-    {
-        uasort($this->routes, static function (RouteInterface $left, RouteInterface $right) {
-            if ($left instanceof GroupRoute) {
-                return -1;
-            }
-            if ($right instanceof GroupRoute) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-        return $this->routes;
-    }
-
-    /**
      * Get route for $name.
      *
      * @param string    $name       Name of the route.
@@ -106,12 +82,11 @@ trait Routes
      */
     private function getRoute(string $name, bool $groupRoute = null): RouteInterface
     {
-        $routes = $this->getRoutes();
-        if (!array_key_exists($name, $routes)) {
+        if (!array_key_exists($name, $this->routes)) {
             throw new RouteNotFound($name);
         }
 
-        $route = $routes[$name];
+        $route = $this->routes[$name];
         if ($route instanceof GroupRoute || !$groupRoute) {
             return $route;
         }
