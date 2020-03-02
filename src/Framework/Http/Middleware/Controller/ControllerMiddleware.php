@@ -7,54 +7,40 @@ use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Middleware\MiddlewareInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
-use ExtendsFramework\Router\Controller\ControllerException;
-use ExtendsFramework\Router\Controller\ControllerInterface;
-use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerExecutionFailed;
-use ExtendsFramework\Router\Framework\Http\Middleware\Controller\Exception\ControllerNotFound;
+use ExtendsFramework\Router\Controller\Executor\ExecutorException;
+use ExtendsFramework\Router\Controller\Executor\ExecutorInterface;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
-use ExtendsFramework\ServiceLocator\ServiceLocatorException;
-use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 
 class ControllerMiddleware implements MiddlewareInterface
 {
     /**
-     * Service locator.
+     * Controller executor.
      *
-     * @var ServiceLocatorInterface
+     * @var ExecutorInterface
      */
-    private $serviceLocator;
+    private $executor;
 
     /**
      * ControllerMiddleware constructor.
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param ExecutorInterface $executor
      */
-    public function __construct(ServiceLocatorInterface $serviceLocator)
+    public function __construct(ExecutorInterface $executor)
     {
-        $this->serviceLocator = $serviceLocator;
+        $this->executor = $executor;
     }
 
     /**
      * @inheritDoc
+     * @throws ExecutorException
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
             $parameters = $match->getParameters();
-            if (array_key_exists('controller', $parameters)) {
-                try {
-                    $controller = $this->serviceLocator->getService($parameters['controller']);
-                } catch (ServiceLocatorException $exception) {
-                    throw new ControllerNotFound($parameters['controller'], $exception);
-                }
-
-                try {
-                    /** @var ControllerInterface $controller */
-                    return $controller->execute($request, $match);
-                } catch (ControllerException $exception) {
-                    throw new ControllerExecutionFailed($exception);
-                }
+            if (isset($parameters['controller'])) {
+                return $this->executor->execute($request, $match);
             }
         }
 

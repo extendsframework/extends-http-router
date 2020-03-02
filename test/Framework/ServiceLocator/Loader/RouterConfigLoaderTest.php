@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Router\Framework\ServiceLocator\Loader;
 
+use ExtendsFramework\Router\Controller\Executor\Executor;
+use ExtendsFramework\Router\Controller\Executor\ExecutorInterface;
 use ExtendsFramework\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
 use ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware;
 use ExtendsFramework\Router\Framework\ServiceLocator\Factory\RouterFactory;
@@ -48,6 +50,7 @@ class RouterConfigLoaderTest extends TestCase
                 ReflectionResolver::class => [
                     RouterMiddleware::class => RouterMiddleware::class,
                     ControllerMiddleware::class => ControllerMiddleware::class,
+                    ExecutorInterface::class => Executor::class,
                 ],
             ],
             RouterInterface::class => [
