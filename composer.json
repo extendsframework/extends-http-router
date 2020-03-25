@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.2.0",
         "extendsframework/extends-http": "^0.1.0",
+        "extendsframework/extends-problem-details": "^0.1.0",
         "extendsframework/extends-servicelocator": "^0.1.0",
         "extendsframework/extends-validator": "^0.1.0"
     },

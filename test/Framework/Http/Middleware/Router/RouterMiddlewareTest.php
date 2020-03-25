@@ -8,6 +8,10 @@ use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Router\Exception\NotFound;
+use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
@@ -54,8 +58,8 @@ class RouterMiddlewareTest extends TestCase
             ->willReturn($match);
 
         /**
-         * @var RouterInterface          $router
-         * @var RequestInterface         $request
+         * @var RouterInterface $router
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
          */
         $middleware = new RouterMiddleware($router);
@@ -94,20 +98,14 @@ class RouterMiddlewareTest extends TestCase
             ->willThrowException(new NotFound($request));
 
         /**
-         * @var RouterInterface          $router
-         * @var RequestInterface         $request
+         * @var RouterInterface $router
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
          */
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertIsObject($response);
-        $this->assertSame(404, $response->getStatusCode());
-        $this->assertSame([
-            'type' => '',
-            'title' => 'Not found.',
-            'path' => '/foo/bar',
-        ], $response->getBody());
+        $this->assertInstanceOf(NotFoundProblemDetails::class, $response->getBody());
     }
 
     /**
@@ -132,24 +130,14 @@ class RouterMiddlewareTest extends TestCase
             ->willThrowException(new MethodNotAllowed('GET', ['PUT', 'POST']));
 
         /**
-         * @var RouterInterface          $router
-         * @var RequestInterface         $request
+         * @var RouterInterface $router
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
          */
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertIsObject($response);
-        $this->assertSame(405, $response->getStatusCode());
-        $this->assertSame([
-            'type' => '',
-            'title' => 'Method not allowed.',
-            'method' => 'GET',
-            'allowed_methods' => ['PUT', 'POST'],
-        ], $response->getBody());
-        $this->assertSame([
-            'Allow' => 'PUT, POST',
-        ], $response->getHeaders());
+        $this->assertInstanceOf(MethodNotAllowedProblemDetails::class, $response->getBody());
     }
 
     /**
@@ -170,7 +158,6 @@ class RouterMiddlewareTest extends TestCase
 
         $exception = $this->createMock(InvalidQueryString::class);
         $exception
-            ->expects($this->once())
             ->method('getParameter')
             ->willReturn('foo');
 
@@ -187,21 +174,14 @@ class RouterMiddlewareTest extends TestCase
             ->willThrowException($exception);
 
         /**
-         * @var RouterInterface          $router
-         * @var RequestInterface         $request
+         * @var RouterInterface $router
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
          */
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertIsObject($response);
-        $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame([
-            'type' => '',
-            'title' => 'Invalid query string.',
-            'parameter' => 'foo',
-            'reason' => $result,
-        ], $response->getBody());
+        $this->assertInstanceOf(InvalidQueryStringProblemDetails::class, $response->getBody());
     }
 
     /**
@@ -220,7 +200,6 @@ class RouterMiddlewareTest extends TestCase
 
         $exception = $this->createMock(QueryParameterMissing::class);
         $exception
-            ->expects($this->once())
             ->method('getParameter')
             ->willReturn('phrase');
 
@@ -232,19 +211,13 @@ class RouterMiddlewareTest extends TestCase
             ->willThrowException($exception);
 
         /**
-         * @var RouterInterface          $router
-         * @var RequestInterface         $request
+         * @var RouterInterface $router
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
          */
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertIsObject($response);
-        $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame([
-            'type' => '',
-            'title' => 'Query parameter missing.',
-            'parameter' => 'phrase',
-        ], $response->getBody());
+        $this->assertInstanceOf(QueryParameterMissingProblemDetails::class, $response->getBody());
     }
 }

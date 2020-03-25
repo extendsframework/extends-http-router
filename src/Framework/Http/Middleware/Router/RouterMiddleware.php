@@ -9,6 +9,10 @@ use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\Response;
 use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Router\Exception\NotFound;
+use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
@@ -47,40 +51,27 @@ class RouterMiddleware implements MiddlewareInterface
             return (new Response())
                 ->withStatusCode(405)
                 ->withHeader('Allow', implode(', ', $exception->getAllowedMethods()))
-                ->withBody([
-                    'type' => '',
-                    'title' => 'Method not allowed.',
-                    'method' => $exception->getMethod(),
-                    'allowed_methods' => $exception->getAllowedMethods(),
-                ]);
+                ->withBody(
+                    new MethodNotAllowedProblemDetails($request, $exception)
+                );
         } catch (NotFound $exception) {
             return (new Response())
                 ->withStatusCode(404)
-                ->withBody([
-                    'type' => '',
-                    'title' => 'Not found.',
-                    'path' => $exception
-                        ->getRequest()
-                        ->getUri()
-                        ->toRelative(),
-                ]);
+                ->withBody(
+                    new NotFoundProblemDetails($request)
+                );
         } catch (InvalidQueryString $exception) {
             return (new Response())
-                ->withStatusCode(400)
-                ->withBody([
-                    'type' => '',
-                    'title' => 'Invalid query string.',
-                    'parameter' => $exception->getParameter(),
-                    'reason' => $exception->getResult(),
-                ]);
+                ->withStatusCode(409)
+                ->withBody(
+                    new InvalidQueryStringProblemDetails($request, $exception)
+                );
         } catch (QueryParameterMissing $exception) {
             return (new Response())
-                ->withStatusCode(400)
-                ->withBody([
-                    'type' => '',
-                    'title' => 'Query parameter missing.',
-                    'parameter' => $exception->getParameter(),
-                ]);
+                ->withStatusCode(404)
+                ->withBody(
+                    new QueryParameterMissingProblemDetails($request, $exception)
+                );
         }
 
         if ($match instanceof RouteMatchInterface) {
