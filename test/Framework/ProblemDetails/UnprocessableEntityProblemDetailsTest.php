@@ -49,6 +49,6 @@ class UnprocessableEntityProblemDetailsTest extends TestCase
         $this->assertSame('Request body is invalid.', $problemDetails->getDetail());
         $this->assertSame(422, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['result' => $result], $problemDetails->getAdditional());
+        $this->assertSame(['errors' => $result], $problemDetails->getAdditional());
     }
 }

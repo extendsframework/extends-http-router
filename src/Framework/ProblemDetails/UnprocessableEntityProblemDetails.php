@@ -24,7 +24,7 @@ class UnprocessableEntityProblemDetails extends ProblemDetails
             422,
             $request->getUri()->toRelative(),
             [
-                'result' => $exception->getResult(),
+                'errors' => $exception->getResult(),
             ]
         );
     }
