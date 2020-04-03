@@ -71,14 +71,14 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $validators = [];
-        foreach ($extra['validators'] ?? [] as $parameter => $validator) {
+        foreach ($extra['validators'] ?? [] as $validator) {
             if (is_string($validator)) {
                 $validator = [
                     'name' => $validator,
                 ];
             }
 
-            $validators[$parameter] = $serviceLocator->getService($validator['name'], $validator['options'] ?? []);
+            $validators[] = $serviceLocator->getService($validator['name'], $validator['options'] ?? []);
         }
 
         return new static($extra['method'], $extra['parameters'] ?? null, $validators);
