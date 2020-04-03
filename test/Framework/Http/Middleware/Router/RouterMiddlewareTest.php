@@ -12,7 +12,9 @@ use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDe
 use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\UnprocessableEntityProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -122,12 +124,14 @@ class RouterMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
 
+        $exception = $this->createMock(MethodNotAllowed::class);
+
         $router = $this->createMock(RouterInterface::class);
         $router
             ->expects($this->once())
             ->method('route')
             ->with($request)
-            ->willThrowException(new MethodNotAllowed('GET', ['PUT', 'POST']));
+            ->willThrowException($exception);
 
         /**
          * @var RouterInterface $router
@@ -219,5 +223,39 @@ class RouterMiddlewareTest extends TestCase
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(QueryParameterMissingProblemDetails::class, $response->getBody());
+    }
+
+    /**
+     * Unprocessable entity.
+     *
+     * Test that when request body is invalid the correct problem details will be returned.
+     *
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
+     * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
+     */
+    public function testUnprocessableEntity(): void
+    {
+        $chain = $this->createMock(MiddlewareChainInterface::class);
+
+        $request = $this->createMock(RequestInterface::class);
+
+        $exception = $this->createMock(UnprocessableEntity::class);
+
+        $router = $this->createMock(RouterInterface::class);
+        $router
+            ->expects($this->once())
+            ->method('route')
+            ->with($request)
+            ->willThrowException($exception);
+
+        /**
+         * @var RouterInterface $router
+         * @var RequestInterface $request
+         * @var MiddlewareChainInterface $chain
+         */
+        $middleware = new RouterMiddleware($router);
+        $response = $middleware->process($request, $chain);
+
+        $this->assertInstanceOf(UnprocessableEntityProblemDetails::class, $response->getBody());
     }
 }

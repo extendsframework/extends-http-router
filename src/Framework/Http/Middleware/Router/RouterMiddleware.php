@@ -13,7 +13,9 @@ use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDe
 use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\UnprocessableEntityProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -49,29 +51,26 @@ class RouterMiddleware implements MiddlewareInterface
             $match = $this->router->route($request);
         } catch (MethodNotAllowed $exception) {
             return (new Response())
-                ->withStatusCode(405)
                 ->withHeader('Allow', implode(', ', $exception->getAllowedMethods()))
                 ->withBody(
                     new MethodNotAllowedProblemDetails($request, $exception)
                 );
         } catch (NotFound $exception) {
-            return (new Response())
-                ->withStatusCode(404)
-                ->withBody(
-                    new NotFoundProblemDetails($request)
-                );
+            return (new Response())->withBody(
+                new NotFoundProblemDetails($request)
+            );
         } catch (InvalidQueryString $exception) {
-            return (new Response())
-                ->withStatusCode(409)
-                ->withBody(
-                    new InvalidQueryStringProblemDetails($request, $exception)
-                );
+            return (new Response())->withBody(
+                new InvalidQueryStringProblemDetails($request, $exception)
+            );
         } catch (QueryParameterMissing $exception) {
-            return (new Response())
-                ->withStatusCode(404)
-                ->withBody(
-                    new QueryParameterMissingProblemDetails($request, $exception)
-                );
+            return (new Response())->withBody(
+                new QueryParameterMissingProblemDetails($request, $exception)
+            );
+        } catch (UnprocessableEntity $exception) {
+            return (new Response())->withBody(
+                new UnprocessableEntityProblemDetails($request, $exception)
+            );
         }
 
         if ($match instanceof RouteMatchInterface) {

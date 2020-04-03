@@ -5,8 +5,11 @@ namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
+use ExtendsFramework\Validator\Result\ResultInterface;
+use ExtendsFramework\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class MethodRouteTest extends TestCase
@@ -28,12 +31,30 @@ class MethodRouteTest extends TestCase
             ->method('getMethod')
             ->willReturn('POST');
 
+        $request
+            ->expects($this->exactly(2))
+            ->method('getBody')
+            ->willReturn(['foo' => 'bar']);
+
+        $result = $this->createMock(ResultInterface::class);
+        $result
+            ->expects($this->exactly(2))
+            ->method('isValid')
+            ->willReturn(true);
+
+        $validator = $this->createMock(ValidatorInterface::class);
+        $validator
+            ->expects($this->exactly(2))
+            ->method('validate')
+            ->with(['foo' => 'bar'])
+            ->willReturn($result);
+
         /**
          * @var RequestInterface $request
          */
         $method = new MethodRoute('POST', [
             'foo' => 'bar',
-        ]);
+        ], [$validator, $validator]);
         $match = $method->match($request, 5);
 
         $this->assertIsObject($match);
@@ -100,6 +121,54 @@ class MethodRouteTest extends TestCase
     }
 
     /**
+     * Unprocessable entity.
+     *
+     * Test that request body is invalid and an exception will be thrown.
+     *
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
+     * @covers \ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity::__construct()
+     */
+    public function testUnprocessableEntity(): void
+    {
+        $this->expectException(UnprocessableEntity::class);
+        $this->expectExceptionMessage('Request body is invalid.');
+
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('getMethod')
+            ->willReturn('POST');
+
+        $request
+            ->expects($this->once())
+            ->method('getBody')
+            ->willReturn(['foo' => 'bar']);
+
+        $result = $this->createMock(ResultInterface::class);
+        $result
+            ->expects($this->once())
+            ->method('isValid')
+            ->willReturn(false);
+
+        $validator = $this->createMock(ValidatorInterface::class);
+        $validator
+            ->expects($this->once())
+            ->method('validate')
+            ->with(['foo' => 'bar'])
+            ->willReturn($result);
+
+        /**
+         * @var RequestInterface $request
+         */
+        $method = new MethodRoute('POST', null, [
+            $validator
+        ]);
+        $method->match($request, 5);
+    }
+
+    /**
      * Assemble.
      *
      * Test that assemble method will return request.
@@ -132,7 +201,17 @@ class MethodRouteTest extends TestCase
      */
     public function testFactory(): void
     {
+        $validator = $this->createMock(ValidatorInterface::class);
+
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->exactly(2))
+            ->method('getService')
+            ->withConsecutive(
+                [ValidatorInterface::class, ['foo' => 'bar',]],
+                [ValidatorInterface::class, []]
+            )
+            ->willReturn($validator);
 
         /**
          * @var ServiceLocatorInterface $serviceLocator
@@ -141,6 +220,15 @@ class MethodRouteTest extends TestCase
             'method' => 'POST',
             'parameters' => [
                 'foo' => 'bar',
+            ],
+            'validators' => [
+                [
+                    'name' => ValidatorInterface::class,
+                    'options' => [
+                        'foo' => 'bar',
+                    ],
+                ],
+                ValidatorInterface::class, // Short syntax will be converted to array with 'name' property.
             ],
         ]);
 

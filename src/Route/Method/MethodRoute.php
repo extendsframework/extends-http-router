@@ -5,11 +5,14 @@ namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatch;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
+use ExtendsFramework\ServiceLocator\ServiceLocatorException;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
+use ExtendsFramework\Validator\ValidatorInterface;
 
 class MethodRoute implements RouteInterface, StaticFactoryInterface
 {
@@ -41,23 +44,44 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     private $parameters;
 
     /**
+     * Validators for matching the request body.
+     *
+     * @var ValidatorInterface[]
+     */
+    private $validators;
+
+    /**
      * Create a method route.
      *
-     * @param string     $method
+     * @param string $method
      * @param array|null $parameters
+     * @param array|null $validators
      */
-    public function __construct(string $method, array $parameters = null)
+    public function __construct(string $method, array $parameters = null, array $validators = null)
     {
         $this->method = $method;
         $this->parameters = $parameters ?? [];
+        $this->validators = $validators ?? [];
     }
 
     /**
      * @inheritDoc
+     * @throws ServiceLocatorException
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
-        return new static($extra['method'], $extra['parameters'] ?? []);
+        $validators = [];
+        foreach ($extra['validators'] ?? [] as $parameter => $validator) {
+            if (is_string($validator)) {
+                $validator = [
+                    'name' => $validator,
+                ];
+            }
+
+            $validators[$parameter] = $serviceLocator->getService($validator['name'], $validator['options'] ?? []);
+        }
+
+        return new static($extra['method'], $extra['parameters'] ?? null, $extra['validator'] ?? null);
     }
 
     /**
@@ -67,6 +91,13 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     {
         $method = $request->getMethod();
         if (strtoupper($method) === $this->method) {
+            foreach ($this->validators as $path => $validator) {
+                $result = $validator->validate($request->getBody());
+                if (!$result->isValid()) {
+                    throw new UnprocessableEntity($result);
+                }
+            }
+
             return new RouteMatch($this->parameters, $pathOffset);
         }
 
