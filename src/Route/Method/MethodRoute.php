@@ -81,7 +81,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
             $validators[$parameter] = $serviceLocator->getService($validator['name'], $validator['options'] ?? []);
         }
 
-        return new static($extra['method'], $extra['parameters'] ?? null, $extra['validator'] ?? null);
+        return new static($extra['method'], $extra['parameters'] ?? null, $extra['validators'] ?? null);
     }
 
     /**
@@ -91,7 +91,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     {
         $method = $request->getMethod();
         if (strtoupper($method) === $this->method) {
-            foreach ($this->validators as $path => $validator) {
+            foreach ($this->validators as $validator) {
                 $result = $validator->validate($request->getBody());
                 if (!$result->isValid()) {
                     throw new UnprocessableEntity($result);
