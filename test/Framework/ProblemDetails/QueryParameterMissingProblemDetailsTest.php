@@ -45,7 +45,7 @@ class QueryParameterMissingProblemDetailsTest extends TestCase
         $this->assertSame('/problems/router/query-parameter-missing', $problemDetails->getType());
         $this->assertSame('Query parameter missing', $problemDetails->getTitle());
         $this->assertSame('Query parameter "author" is missing.', $problemDetails->getDetail());
-        $this->assertSame(409, $problemDetails->getStatus());
+        $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['parameter' => 'author'], $problemDetails->getAdditional());
     }

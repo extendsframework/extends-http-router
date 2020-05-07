@@ -24,7 +24,7 @@ class InvalidQueryStringProblemDetails extends ProblemDetails
                 'Value for query string parameter "%s" is invalid.',
                 $exception->getParameter()
             ),
-            409,
+            400,
             $request->getUri()->toRelative(),
             [
                 'parameter' => $exception->getParameter(),

@@ -5,16 +5,16 @@ namespace ExtendsFramework\Router\Framework\ProblemDetails;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Request\Uri\UriInterface;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
-class UnprocessableEntityProblemDetailsTest extends TestCase
+class InvalidRequestBodyProblemDetailsTest extends TestCase
 {
     /**
      * Test that getters will return correct values.
      *
-     * @covers \ExtendsFramework\Router\Framework\ProblemDetails\UnprocessableEntityProblemDetails::__construct()
+     * @covers \ExtendsFramework\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails::__construct()
      */
     public function testGetters(): void
     {
@@ -32,7 +32,7 @@ class UnprocessableEntityProblemDetailsTest extends TestCase
             ->method('getUri')
             ->willReturn($uri);
 
-        $exception = $this->createMock(UnprocessableEntity::class);
+        $exception = $this->createMock(InvalidRequestBody::class);
         $exception
             ->expects($this->once())
             ->method('getResult')
@@ -40,14 +40,14 @@ class UnprocessableEntityProblemDetailsTest extends TestCase
 
         /**
          * @var RequestInterface $request
-         * @var UnprocessableEntity $exception
+         * @var InvalidRequestBody $exception
          */
-        $problemDetails = new UnprocessableEntityProblemDetails($request, $exception);
+        $problemDetails = new InvalidRequestBodyProblemDetails($request, $exception);
 
-        $this->assertSame('/problems/router/unprocessable-entity', $problemDetails->getType());
-        $this->assertSame('Unprocessable Entity', $problemDetails->getTitle());
+        $this->assertSame('/problems/router/invalid-request-body', $problemDetails->getType());
+        $this->assertSame('Invalid request body', $problemDetails->getTitle());
         $this->assertSame('Request body is invalid.', $problemDetails->getDetail());
-        $this->assertSame(422, $problemDetails->getStatus());
+        $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['errors' => $result], $problemDetails->getAdditional());
     }

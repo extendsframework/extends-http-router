@@ -5,23 +5,23 @@ namespace ExtendsFramework\Router\Framework\ProblemDetails;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\ProblemDetails\ProblemDetails;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 
-class UnprocessableEntityProblemDetails extends ProblemDetails
+class InvalidRequestBodyProblemDetails extends ProblemDetails
 {
     /**
-     * UnprocessableEntityProblemDetails constructor.
+     * InvalidRequestBodyProblemDetails constructor.
      *
      * @param RequestInterface $request
-     * @param UnprocessableEntity $exception
+     * @param InvalidRequestBody $exception
      */
-    public function __construct(RequestInterface $request, UnprocessableEntity $exception)
+    public function __construct(RequestInterface $request, InvalidRequestBody $exception)
     {
         parent::__construct(
-            '/problems/router/unprocessable-entity',
-            'Unprocessable Entity',
+            '/problems/router/invalid-request-body',
+            'Invalid request body',
             'Request body is invalid.',
-            422,
+            400,
             $request->getUri()->toRelative(),
             [
                 'errors' => $exception->getResult(),

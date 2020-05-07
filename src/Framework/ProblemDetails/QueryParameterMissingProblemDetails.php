@@ -24,7 +24,7 @@ class QueryParameterMissingProblemDetails extends ProblemDetails
                 'Query parameter "%s" is missing.',
                 $exception->getParameter()
             ),
-            409,
+            400,
             $request->getUri()->toRelative(),
             [
                 'parameter' => $exception->getParameter(),

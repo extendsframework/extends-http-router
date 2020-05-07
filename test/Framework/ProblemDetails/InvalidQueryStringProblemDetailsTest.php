@@ -52,7 +52,7 @@ class InvalidQueryStringProblemDetailsTest extends TestCase
         $this->assertSame('/problems/router/invalid-query-string', $problemDetails->getType());
         $this->assertSame('Invalid query string', $problemDetails->getTitle());
         $this->assertSame('Value for query string parameter "limit" is invalid.', $problemDetails->getDetail());
-        $this->assertSame(409, $problemDetails->getStatus());
+        $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['parameter' => 'limit', 'reason' => $result], $problemDetails->getAdditional());
     }

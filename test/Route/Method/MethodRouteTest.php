@@ -5,7 +5,7 @@ namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use ExtendsFramework\Validator\Result\ResultInterface;
@@ -128,11 +128,11 @@ class MethodRouteTest extends TestCase
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::__construct()
      * @covers \ExtendsFramework\Router\Route\Method\MethodRoute::match()
-     * @covers \ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody::__construct()
      */
     public function testUnprocessableEntity(): void
     {
-        $this->expectException(UnprocessableEntity::class);
+        $this->expectException(InvalidRequestBody::class);
         $this->expectExceptionMessage('Request body is invalid.');
 
         $request = $this->createMock(RequestInterface::class);

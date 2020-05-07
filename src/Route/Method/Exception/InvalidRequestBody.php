@@ -7,7 +7,7 @@ use ExtendsFramework\Router\Route\Method\MethodRouteException;
 use ExtendsFramework\Validator\Result\ResultInterface;
 use RuntimeException;
 
-class UnprocessableEntity extends RuntimeException implements MethodRouteException
+class InvalidRequestBody extends RuntimeException implements MethodRouteException
 {
     /**
      * Validation result.

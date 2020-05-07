@@ -13,9 +13,9 @@ use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDe
 use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
-use ExtendsFramework\Router\Framework\ProblemDetails\UnprocessableEntityProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -67,9 +67,9 @@ class RouterMiddleware implements MiddlewareInterface
             return (new Response())->withBody(
                 new QueryParameterMissingProblemDetails($request, $exception)
             );
-        } catch (UnprocessableEntity $exception) {
+        } catch (InvalidRequestBody $exception) {
             return (new Response())->withBody(
-                new UnprocessableEntityProblemDetails($request, $exception)
+                new InvalidRequestBodyProblemDetails($request, $exception)
             );
         }
 

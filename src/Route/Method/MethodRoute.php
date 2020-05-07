@@ -5,7 +5,7 @@ namespace ExtendsFramework\Router\Route\Method;
 
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsFramework\Router\Route\RouteInterface;
 use ExtendsFramework\Router\Route\RouteMatch;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -94,7 +94,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
             foreach ($this->validators as $validator) {
                 $result = $validator->validate($request->getBody());
                 if (!$result->isValid()) {
-                    throw new UnprocessableEntity($result);
+                    throw new InvalidRequestBody($result);
                 }
             }
 

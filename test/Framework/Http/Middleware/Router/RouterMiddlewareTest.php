@@ -12,9 +12,9 @@ use ExtendsFramework\Router\Framework\ProblemDetails\InvalidQueryStringProblemDe
 use ExtendsFramework\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\NotFoundProblemDetails;
 use ExtendsFramework\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
-use ExtendsFramework\Router\Framework\ProblemDetails\UnprocessableEntityProblemDetails;
+use ExtendsFramework\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails;
 use ExtendsFramework\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity;
+use ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsFramework\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsFramework\Router\Route\Query\Exception\QueryParameterMissing;
 use ExtendsFramework\Router\Route\RouteMatchInterface;
@@ -226,20 +226,20 @@ class RouterMiddlewareTest extends TestCase
     }
 
     /**
-     * Unprocessable entity.
+     * Invalid request body.
      *
      * Test that when request body is invalid the correct problem details will be returned.
      *
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::__construct()
      * @covers \ExtendsFramework\Router\Framework\Http\Middleware\Router\RouterMiddleware::process()
      */
-    public function testUnprocessableEntity(): void
+    public function testInvalidRequestBody(): void
     {
         $chain = $this->createMock(MiddlewareChainInterface::class);
 
         $request = $this->createMock(RequestInterface::class);
 
-        $exception = $this->createMock(UnprocessableEntity::class);
+        $exception = $this->createMock(InvalidRequestBody::class);
 
         $router = $this->createMock(RouterInterface::class);
         $router
@@ -256,6 +256,6 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(UnprocessableEntityProblemDetails::class, $response->getBody());
+        $this->assertInstanceOf(InvalidRequestBodyProblemDetails::class, $response->getBody());
     }
 }

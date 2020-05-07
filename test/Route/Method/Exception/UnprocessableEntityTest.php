@@ -13,8 +13,8 @@ class UnprocessableEntityTest extends TestCase
      *
      * Test that correct result will be returned.
      *
-     * @covers \ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity::__construct()
-     * @covers \ExtendsFramework\Router\Route\Method\Exception\UnprocessableEntity::getResult()
+     * @covers \ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody::__construct()
+     * @covers \ExtendsFramework\Router\Route\Method\Exception\InvalidRequestBody::getResult()
      */
     public function testGetResult(): void
     {
@@ -23,7 +23,7 @@ class UnprocessableEntityTest extends TestCase
         /**
          * @var ResultInterface $result
          */
-        $exception = new UnprocessableEntity($result);
+        $exception = new InvalidRequestBody($result);
 
         $this->assertSame($result, $exception->getResult());
     }
